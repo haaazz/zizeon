@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import HomeView from '@/views/HomeView.vue'
 import MapView from '@/views/MapView.vue'
 import ExchangeView from '@/views/ExchangeView.vue'
@@ -7,6 +8,7 @@ import MyPageView from '@/views/MyPageView.vue'
 import CommunityView from '@/views/CommunityView.vue'
 import ProductsView from '@/views/ProductsView.vue'
 import RecommendView from '@/views/RecommendView.vue'
+import QuizAnswerView from '@/views/QuizAnswerView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +53,11 @@ const router = createRouter({
       name: 'recommend',
       component: RecommendView
     },
+    {
+        path: '/answer',
+        name: 'answer',
+        component: QuizAnswerView
+      },
   ]
 })
 
