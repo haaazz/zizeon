@@ -9,7 +9,7 @@ from .serializers import DepositsSerializer, DepositOptionsSerializer, SavingsSe
 
 # Create your views here.
 @api_view(['GET'])
-def get_deposit_data(request):
+def get_deposit(request):
     api_key = settings.API_KEY
     url = 'http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json'
     params = {
@@ -58,13 +58,13 @@ def get_deposit_data(request):
     return Response({ 'message': 'saved!' })
 
 @api_view(['GET'])
-def see_deposit_data(request):
+def deposit(request):
     deposits = Deposit.objects.all()
     serializers = DepositsSerializer(deposits, many=True)
     return Response(serializers.data)
 
 @api_view(['GET'])
-def get_saving_data(request):
+def get_saving(request):
     api_key = settings.API_KEY
     url = 'http://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json'
     params = {
@@ -111,3 +111,9 @@ def get_saving_data(request):
                 serializer.save(saving=product)
 
     return Response({ 'message': 'saved!' })
+
+@api_view(['GET'])
+def saving(request):
+    savings = Saving.objects.all()
+    serializers = SavingsSerializer(savings, many=True)
+    return Response(serializers.data)
