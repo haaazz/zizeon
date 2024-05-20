@@ -5,10 +5,12 @@ import MapView from '@/views/MapView.vue'
 import ExchangeView from '@/views/ExchangeView.vue'
 import QuizView from '@/views/QuizView.vue'
 import MyPageView from '@/views/MyPageView.vue'
-import CommunityView from '@/views/CommunityView.vue'
+import ArticleView from '@/views/ArticleView.vue'
 import ProductsView from '@/views/ProductsView.vue'
 import RecommendView from '@/views/RecommendView.vue'
 import QuizAnswerView from '@/views/QuizAnswerView.vue'
+import ArticleDetailView from '@/views/ArticleDetailView.vue'
+import ArticleCreateView from '@/views/ArticleCreateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,9 +41,9 @@ const router = createRouter({
       component: QuizView
     },
     {
-      path: '/community',
-      name: 'community',
-      component: CommunityView
+      path: '/article',
+      name: 'article',
+      component: ArticleView
     },
     {
       path: '/products',
@@ -58,6 +60,16 @@ const router = createRouter({
         name: 'answer',
         component: QuizAnswerView
       },
+    {
+    path: '/articles/:id',
+    name: 'ArticleDetail',
+    component: ArticleDetailView
+    },
+    {
+    path: '/create',
+    name: 'ArticleCreate',
+    component: ArticleCreateView
+    },
   ]
 })
 

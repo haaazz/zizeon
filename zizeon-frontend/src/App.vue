@@ -8,7 +8,7 @@
         <RouterLink :to="'/recommend'" class="nav-link" :class="{ 'active-link': $route.path === '/recommend' }"> 추천 상품 조회 </RouterLink> |
         <RouterLink :to="'/map'" class="nav-link" :class="{ 'active-link': $route.path === '/map' }"> 근처 은행 </RouterLink> |
         <RouterLink :to="'/exchange'" class="nav-link" :class="{ 'active-link': $route.path === '/exchange' }"> 환율 정보 </RouterLink> |
-        <RouterLink :to="'/community'" class="nav-link" :class="{ 'active-link': $route.path === '/community' }"> 커뮤니티 </RouterLink> |
+        <RouterLink :to="'/article'" class="nav-link" :class="{ 'active-link': $route.path === '/article' }"> 커뮤니티 </RouterLink> |
         <RouterLink :to="'/mypage'" class="nav-link" :class="{ 'active-link': $route.path === '/mypage' }"> 마이페이지 </RouterLink>
       </nav>
       <hr>
