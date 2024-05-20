@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'articles',
     'products',
-    'exchange',
+    'currencies',
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
 ]
 
 # social login 필요 시 추가

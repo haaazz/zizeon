@@ -3,7 +3,8 @@ from django.conf import settings
 import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import ExchangesSerializer
+from .serializers import CurrenciesSerializer
+from .models import Currency
 
 # Create your views here.
 @api_view(['GET'])
@@ -25,7 +26,7 @@ def get_data(request):
             'deal_bas_r': exchange.get('deal_bas_r'),
             'bkpr': exchange.get('bkpr'),
         }
-        serializer = ExchangesSerializer(data=data)
+        serializer = CurrenciesSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
@@ -33,4 +34,6 @@ def get_data(request):
 
 @api_view(['GET'])
 def exchange(request):
-    pass
+    currencies = Currency.objects.all() 
+    serializers = CurrenciesSerializer(currencies, many=True)
+    return Response(serializers.data)
