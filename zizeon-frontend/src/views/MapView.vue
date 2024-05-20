@@ -1,42 +1,36 @@
 <template>
     <div>
       <container>
-        <row>
-          <col align="center">
-            <h1 class="half-highlight">내 주변 은행 찾기</h1>
-          </col>
-        </row>
-        <row>
-          <col align="center">
-            <btn
-              ><select v-model="province" @change="updateCities">
+            <h1>내 주변 은행 찾기</h1>
+        <div>
+            <btn>
+                <select v-model="province" @change="updateCities">
                 <option value="">도/시</option>
                 <option v-for="info in infos" :key="info.id">
-                  {{ info.prov }}
+                    {{ info.prov }}
                 </option>
-              </select> </btn
-            >　
+                </select>
+            </btn>　
             <btn>
-              <select v-model="city">
+                <select v-model="city">
                 <option value="">시/군/구</option>
                 <option v-for="c in cities" :key="c">{{ c }}</option>
-              </select> </btn
-            >　<btn>
-              <select v-model="bank">
+                </select>
+            </btn>　
+            <btn>
+                <select v-model="bank">
                 <option value="">은행명</option>
                 <option v-for="b in banks" :key="b">{{ b }}</option>
-              </select>
+                </select>
             </btn>
-          </col>
-        </row>
-  
-        <row>
-          <col>
+        </div>
+          <div>
             <MapComponent :province="province" :city="city" :bank="bank" />
-          </col>
-        </row>
+          </div>
+
       </container>
     </div>
+
   </template>
   
   <script setup lang="ts">
@@ -67,5 +61,8 @@
   <style scoped>
   * {
     font-family: YeongjuSeonbi;
+  }
+  container {
+    text-align: center;
   }
   </style>

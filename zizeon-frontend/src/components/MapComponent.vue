@@ -1,7 +1,7 @@
 <template>
     <div class="map-component-under">
       <button @click="searchOnMap">검색하기</button>
-      <div id="mapContainer" style="width: 80%; height: 550px"></div>
+      <div id="mapContainer"></div>
     </div>
   </template>
   
@@ -108,7 +108,7 @@
   
     window.kakao.maps.event.addListener(marker, "click", () => {
       infowindow.value.setContent(
-        '<div style="padding:5px;font-size:12px;">' + place.place_name + "</div>"
+        '<div style="padding:5px;font-size:11px;">' + place.place_name + "</div>"
       );
       infowindow.value.open(map.value, marker);
     });
@@ -125,5 +125,16 @@
   </script>
   
   <style scoped>
-
+  button {
+    text-align: center;
+    margin: 15px;
+  }
+  #mapContainer {
+    width: 80%;
+    height: 550px;
+    margin: auto;
+  }
+  * {
+    font-family: YeongjuSeonbi;
+  }
   </style>
