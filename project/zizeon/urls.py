@@ -22,7 +22,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('articles/', include('articles.urls')),
     path('products/', include('products.urls')),
-    path('exchange/', include('exchange.urls')),
+    path('currencies/', include('currencies.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
 ]

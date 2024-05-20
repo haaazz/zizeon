@@ -1,8 +1,8 @@
 from django.urls import path
 from . import views
 
-app_name = 'exchange'
+app_name = 'currencies'
 urlpatterns = [
     path('get_data/', views.get_data),
-    path('', views.exchange),
+    path('exchange/', views.exchange),
 ]
