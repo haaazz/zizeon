@@ -1,54 +1,71 @@
 <template>
-    <div id="map-container">
-        <div id="map"></div>
+    <div>
+      <container>
+        <row>
+          <col align="center">
+            <h1 class="half-highlight">내 주변 은행 찾기</h1>
+          </col>
+        </row>
+        <row>
+          <col align="center">
+            <btn
+              ><select v-model="province" @change="updateCities">
+                <option value="">도/시</option>
+                <option v-for="info in infos" :key="info.id">
+                  {{ info.prov }}
+                </option>
+              </select> </btn
+            >　
+            <btn>
+              <select v-model="city">
+                <option value="">시/군/구</option>
+                <option v-for="c in cities" :key="c">{{ c }}</option>
+              </select> </btn
+            >　<btn>
+              <select v-model="bank">
+                <option value="">은행명</option>
+                <option v-for="b in banks" :key="b">{{ b }}</option>
+              </select>
+            </btn>
+          </col>
+        </row>
+  
+        <row>
+          <col>
+            <MapComponent :province="province" :city="city" :bank="bank" />
+          </col>
+        </row>
+      </container>
     </div>
-</template>
-
-<script>
-    export default {
-        mounted() {
-            const API_KEY = import.meta.env.VITE_API_KEY
-
-            if (!window.kakao || !window.kakao.maps) {
-                const script = document.createElement('script')
-                script.type = 'text/javascript'
-                script.src =
-                    '//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=' + API_KEY + '&libraries=clusterer,drawing,services'
-                script.addEventListener('load', () => {
-                    kakao.maps.load(() => {
-                    this.initMap()
-                    })
-                })
-                document.head.appendChild(script)
-            } else {
-                this.initMap()
-            }
-        },
-        methods: {
-            initMap() {
-            const container = document.getElementById('map')
-            const options = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667),
-                level: 8
-            }
-            this.map = new kakao.maps.Map(container, options)
-            }
-        }
-    }
-</script>
-
-<style scoped>
-#map-container {
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-    margin-left: 1000px;
-    height: 80vh; /* 화면 전체 높이에 지도를 중앙에 배치 */
-}
-
-#map {
-    width: 550px;
-    height: 450px;
-}
-</style>
+  </template>
+  
+  <script setup lang="ts">
+  import MapComponent from "@/components/MapComponent.vue";
+  import { ref, watch } from "vue";
+  import { useMapStore } from "@/stores/map";
+  
+  const store = useMapStore();
+  
+  const infos = store.infos;
+  const banks = store.banks;
+  const cities = ref<string[]>([]);
+  
+  const province = ref("");
+  const city = ref("");
+  const bank = ref("");
+  
+  const updateCities = () => {
+    const selectedInfo = infos.find((info) => info.prov === province.value);
+    cities.value = selectedInfo ? selectedInfo.city : [];
+  };
+  
+  watch(province, () => {
+    updateCities();
+  });
+  </script>
+  
+  <style scoped>
+  * {
+    font-family: YeongjuSeonbi;
+  }
+  </style>

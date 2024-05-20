@@ -3,8 +3,13 @@
     <div class="navdiv">
       <nav>
         <RouterLink :to="'/'" class="nav-link" :class="{ 'active-link': $route.path === '/' }"> 홈 </RouterLink> |
+        <RouterLink :to="'/quiz'" class="nav-link" :class="{ 'active-link': $route.path === '/quiz' }"> 금융 퀴즈 </RouterLink> |
+        <RouterLink :to="'/products'" class="nav-link" :class="{ 'active-link': $route.path === '/products' }"> 전체 상품 조회 </RouterLink> |
+        <RouterLink :to="'/recommend'" class="nav-link" :class="{ 'active-link': $route.path === '/recommend' }"> 추천 상품 조회 </RouterLink> |
         <RouterLink :to="'/map'" class="nav-link" :class="{ 'active-link': $route.path === '/map' }"> 근처 은행 </RouterLink> |
         <RouterLink :to="'/exchange'" class="nav-link" :class="{ 'active-link': $route.path === '/exchange' }"> 환율 정보 </RouterLink> |
+        <RouterLink :to="'/community'" class="nav-link" :class="{ 'active-link': $route.path === '/community' }"> 커뮤니티 </RouterLink> |
+        <RouterLink :to="'/mypage'" class="nav-link" :class="{ 'active-link': $route.path === '/mypage' }"> 마이페이지 </RouterLink> |
       </nav>
       <hr>
     </div>
