@@ -6,11 +6,10 @@ from rest_framework.response import Response
 from .models import Deposit, DepositOption, Saving, SavingOption
 from .serializers import DepositsSerializer, DepositOptionsSerializer, SavingsSerializer, SavingOptionsSerializer
 
-
 # Create your views here.
 @api_view(['GET'])
 def get_deposit(request):
-    api_key = settings.API_KEY
+    api_key = settings.FIN_KEY
     url = 'http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json'
     params = {
         'auth': api_key,
@@ -65,7 +64,7 @@ def deposit(request):
 
 @api_view(['GET'])
 def get_saving(request):
-    api_key = settings.API_KEY
+    api_key = settings.FIN_KEY
     url = 'http://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json'
     params = {
         'auth': api_key,

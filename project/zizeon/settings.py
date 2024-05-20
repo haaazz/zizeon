@@ -22,7 +22,8 @@ env = environ.Env(DEBUG=(bool, True))
 
 environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
-API_KEY = env('API_KEY')
+FIN_KEY = env('FIN_KEY')
+EXC_KEY = env('EXCHANGE_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -33,7 +34,7 @@ SECRET_KEY = 'django-insecure-axy)$l9q$m+3v4ya4pwd**2%&t04chaj_df+1(gmvzhdgc(x92
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'articles',
     'products',
+    'exchange',
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
