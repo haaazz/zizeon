@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export const useDepositStore = defineStore('depositcounter', () => {
   const deposits = ref([])
+  const depositoptions = ref([])
   const API_URL = 'http://70.12.102.186:8000'
 
   const getDeposit = function () {
@@ -12,10 +13,12 @@ export const useDepositStore = defineStore('depositcounter', () => {
       url: `${API_URL}/products/deposit/`
     })
     .then(res => {
-      deposits.value = res.data
+      console.log(depositoptions)
+      deposits.value = res.data.deposits
+      depositoptions.value = res.data.options
     })
     .catch(err => console.log(err))
   }
 
-  return { deposits, API_URL, getDeposit }
+  return { deposits, API_URL, getDeposit, depositoptions }
 }, { persist : true } )

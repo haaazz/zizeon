@@ -16,8 +16,12 @@
         <tbody>
           <tr v-for="deposit in paginatedDeposits" :key="deposit.id">
             <td>{{ deposit.id }}</td>
-            <td>{{ deposit.fin_prdt_nm }}</td>
+            <td><RouterLink :to="{name:'DepositDetail', params: {id:deposit.id}}">{{ deposit.fin_prdt_nm }}</RouterLink></td>
             <td>{{ deposit.kor_co_nm }}</td>
+            <td v-for="option in changeOption(deposit, 6)"><p>{{ option.intr_rate }}</p></td>
+            <td v-for="option in changeOption(deposit, 12)"><p>{{ option.intr_rate }}</p></td>
+            <td v-for="option in changeOption(deposit, 24)"><p>{{ option.intr_rate }}</p></td>
+            <td v-for="option in changeOption(deposit, 36)"><p>{{ option.intr_rate }}</p></td>
           </tr>
         </tbody>
       </table>
@@ -33,9 +37,11 @@
   <script setup>
   import { ref, computed, onMounted } from 'vue'
   import { useDepositStore } from '@/stores/deposit'
+  import { RouterLink } from 'vue-router'
   
   const store = useDepositStore()
   const deposits = ref([])
+  const options = ref([])
   const currentPage = ref(1)
   // 한 페이지에 15개 상품씩만 출력
   const itemsPerPage = 15
@@ -45,6 +51,11 @@
     return Math.ceil(deposits.value.length / itemsPerPage)
   })
   
+  const changeOption = function (deposit, trm) {
+      console.log(options.value)
+      return options.value.filter((option) => option.deposit == deposit.id && option.save_trm == trm)
+  }
+
   const paginatedDeposits = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage
     const end = start + itemsPerPage
@@ -66,6 +77,7 @@
   onMounted(async () => {
     await store.getDeposit()
     deposits.value = store.deposits
+    options.value = store.depositoptions
   })
   </script>
   
