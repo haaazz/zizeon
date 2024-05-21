@@ -53,11 +53,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    'django.contrib.sites',
     'allauth',
     'allauth.account',
-    # social login 필요 시 추가
-    'django.contrib.sites',
     'allauth.socialaccount',
+    'dj_rest_auth.registration',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,13 +67,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# social login 필요 시 추가
 SITE_ID = 1
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
 }
 
 REST_AUTH = {
@@ -82,6 +84,8 @@ REST_AUTH = {
 }
 
 ACCOUNT_ADAPTER  = 'accounts.models.CustomAccountAdapter'
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',

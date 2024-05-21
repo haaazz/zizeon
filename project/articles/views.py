@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import requests
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from .models import Article
 from .serializers import ArticleSerializer, ArticleListSerializer, CommentSerializer
@@ -57,7 +58,8 @@ def article(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-@api_view(['GET'])   
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def article_detail(request, pk):
     article = Article.objects.get(pk=pk)
     serializer = ArticleSerializer(article)
