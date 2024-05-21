@@ -3,7 +3,7 @@ from django.conf import settings
 import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import CurrenciesSerializer
+from .serializers import CurrencySerializer
 from .models import Currency
 
 # Create your views here.
@@ -13,10 +13,11 @@ def get_data(request):
     url = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON'
     params = {
         'authkey': api_key,
+        'searchdate': '20240520',
         'data': 'AP01',
     }
     response = requests.get(url, params=params).json()
-
+    
     for exchange in response:
         data = {
             'cur_unit': exchange.get('cur_unit'),
@@ -26,7 +27,7 @@ def get_data(request):
             'deal_bas_r': exchange.get('deal_bas_r'),
             'bkpr': exchange.get('bkpr'),
         }
-        serializer = CurrenciesSerializer(data=data)
+        serializer = CurrencySerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
@@ -35,5 +36,5 @@ def get_data(request):
 @api_view(['GET'])
 def exchange(request):
     currencies = Currency.objects.all() 
-    serializers = CurrenciesSerializer(currencies, many=True)
+    serializers = CurrencySerializer(currencies, many=True)
     return Response(serializers.data)

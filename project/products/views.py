@@ -4,7 +4,7 @@ import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Deposit, DepositOption, Saving, SavingOption
-from .serializers import DepositsSerializer, DepositOptionsSerializer, SavingsSerializer, SavingOptionsSerializer
+from .serializers import DepositSerializer, DepositOptionSerializer, SavingSerializer, SavingOptionSerializer
 
 # Create your views here.
 @api_view(['GET'])
@@ -35,7 +35,7 @@ def get_deposit(request):
             'spcl_cnd' : product.get('spcl_cnd', '-'),
             'mtrt_int' : product.get('mtrt_int', '-'),
         }
-        serializer = DepositsSerializer(data=data)
+        serializer = DepositSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         
@@ -50,7 +50,7 @@ def get_deposit(request):
                 'intr_rate2': option.get('intr_rate2', -1),
                 'save_trm': option.get('save_trm', '-')
             }
-            serializer = DepositOptionsSerializer(data=data)
+            serializer = DepositOptionSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(deposit=product)
 
@@ -59,8 +59,14 @@ def get_deposit(request):
 @api_view(['GET'])
 def deposit(request):
     deposits = Deposit.objects.all()
-    serializers = DepositsSerializer(deposits, many=True)
-    return Response(serializers.data)
+    serializers = DepositSerializer(deposits, many=True)
+    return Response(serializers.data)\
+
+@api_view(['GET'])
+def deposit_detail(request, pk):
+    deposit = Deposit.objects.get(pk=pk)
+    serializer = DepositSerializer(deposit)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def get_saving(request):
@@ -89,7 +95,7 @@ def get_saving(request):
             'spcl_cnd' : product.get('spcl_cnd', '-'),
             'mtrt_int' : product.get('mtrt_int', '-'),
         }
-        serializer = SavingsSerializer(data=data)
+        serializer = SavingSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         
@@ -105,7 +111,7 @@ def get_saving(request):
                 'intr_rate2': option.get('intr_rate2', -1),
                 'save_trm': option.get('save_trm', '-')
             }
-            serializer = SavingOptionsSerializer(data=data)
+            serializer = SavingOptionSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(saving=product)
 
@@ -114,5 +120,11 @@ def get_saving(request):
 @api_view(['GET'])
 def saving(request):
     savings = Saving.objects.all()
-    serializers = SavingsSerializer(savings, many=True)
+    serializers = SavingSerializer(savings, many=True)
     return Response(serializers.data)
+
+@api_view(['GET'])
+def saving_detail(request, pk):
+    saving = Saving.objects.get(pk=pk)
+    serializer = SavingSerializer(saving)
+    return Response(serializer.data)

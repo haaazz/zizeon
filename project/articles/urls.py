@@ -5,5 +5,6 @@ app_name = 'articles'
 urlpatterns = [
     # path('get_articles/', views.get_articles),
     # path('get_comments/', views.get_comments),
-    path('articles/', views.article),
+    path('', views.article),
+    path('<int:pk>/', views.article_detail),
 ]
