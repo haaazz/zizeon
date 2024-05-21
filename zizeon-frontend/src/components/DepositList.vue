@@ -52,7 +52,6 @@
   })
   
   const changeOption = function (deposit, trm) {
-      console.log(options.value)
       return options.value.filter((option) => option.deposit == deposit.id && option.save_trm == trm)
   }
 
