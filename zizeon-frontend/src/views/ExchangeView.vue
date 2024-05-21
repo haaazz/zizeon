@@ -30,13 +30,13 @@
   
     const convertToForeign = () => {
       if (currency.value) {
-        foreign.value = KRW.value / currency.value.bkpr
+        foreign.value = KRW.value / currency.value.deal_bas_r.replace(/,/g, '')
       }
     }
   
     const convertToKRW = () => {
       if (currency.value) {
-        KRW.value = foreign.value * currency.value.bkpr
+        KRW.value = foreign.value * currency.value.deal_bas_r.replace(/,/g, '')
       }
     }
   </script>
