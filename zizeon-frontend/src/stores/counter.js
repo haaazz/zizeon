@@ -12,7 +12,6 @@ export const useCounterStore = defineStore('counter', () => {
           url: `${API_URL}/currencies/exchange/`
       })
       .then(res => {
-          console.log(res.data)
           currencies.value = res.data
       })
       .catch(err => console.log(err))

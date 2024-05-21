@@ -13,7 +13,6 @@ export const useDepositStore = defineStore('depositcounter', () => {
       url: `${API_URL}/products/deposit/`
     })
     .then(res => {
-      console.log(depositoptions)
       deposits.value = res.data.deposits
       depositoptions.value = res.data.options
     })

@@ -1,26 +1,86 @@
 <template>
+  <div>
+    <h1>커뮤니티</h1>
+    <RouterLink :to="{name:'ArticleCreate'}">[게시글 작성]</RouterLink>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>제목</th>
+          <th>내용</th>
+          <th>자세히</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="article in paginatedArticles" :key="article.id">
+          <td>{{ article.id }}</td>
+          <td>{{ article.title }}</td>
+          <td>{{ article.content.slice(0, 20) }}</td>
+          <td><RouterLink :to="{ name: 'ArticleDetail', params: { id: article.id }}">[자세히]</RouterLink></td>
+        </tr>
+      </tbody>
+    </table>
     <div>
-        <h1>커뮤니티</h1>
-        <RouterLink :to="{name:'ArticleCreate'}">[게시글 작성]</RouterLink>
-        <ArticleList/>
+      <button @click="prevPage" :disabled="currentPage === 1">이전</button>
+      <span>{{ currentPage }}</span>
+      <button @click="nextPage" :disabled="currentPage === totalPages">다음</button>
     </div>
+  </div>
 </template>
 
 <script setup>
-
-import { onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { useArticleStore } from '@/stores/articles'
 import { RouterLink } from 'vue-router'
-import ArticleList from '@/components/ArticleList.vue'
 
 const store = useArticleStore()
 
-onMounted(() => {
-    store.getArticles()
+const currentPage = ref(1)
+const articlesPerPage = 15
+
+const paginatedArticles = computed(() => {
+  const startIndex = (currentPage.value - 1) * articlesPerPage
+  const endIndex = startIndex + articlesPerPage
+  return store.articles.slice(startIndex, endIndex)
 })
+
+const totalPages = computed(() => Math.ceil(store.articles.length / articlesPerPage))
+
+function nextPage() {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++
+  }
+}
+
+function prevPage() {
+  if (currentPage.value > 1) {
+    currentPage.value--
+  }
+}
+
+//  article onMounted 해서 가져와야함 지금 store.article에 암것도 안들어가있음
+//   onMounted(async () => {
+//     await store.getDeposit()
+//     deposits.value = store.deposits
+//     options.value = store.depositoptions
+//   })
 
 </script>
 
 <style scoped>
+/* 추가적인 스타일링을 원하면 여기에 추가하세요. */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
 </style>

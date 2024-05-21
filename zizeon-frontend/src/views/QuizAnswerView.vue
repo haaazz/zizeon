@@ -11,17 +11,23 @@
           나의 제출 답안: {{ userAnswer }}
         </p>
       </div>
+      <button class="back-button" @click="goBack">뒤로가기</button>
     </div>
   </template>
   
   <script setup>
   import { computed } from 'vue'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   
   const route = useRoute()
+  const router = useRouter()
   const { pk, answer } = route.params
   const userAnswer = route.query.userAnswer
   const isCorrect = route.query.isCorrect === 'true'
+
+  const goBack = () => {
+    router.push('/quiz')
+  }
   </script>
   
   <style scoped>

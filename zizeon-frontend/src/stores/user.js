@@ -20,7 +20,6 @@ export const useUserStore = defineStore('usercounter', () => {
     })
     .then(res => {
         console.log('로그인 잘 됨 !!!!ㅎㅎ')
-        console.log(res.data)
         token.value = res.data.key
         console.log(token)
     })
