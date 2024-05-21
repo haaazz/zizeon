@@ -7,7 +7,10 @@
             <th>번호</th>
             <th>상품명</th>
             <th>회사명</th>
-            <th>공시월</th>
+            <th>6개월</th>
+            <th>12개월</th>
+            <th>24개월</th>
+            <th>36개월</th>
           </tr>
         </thead>
         <tbody>
@@ -15,7 +18,6 @@
             <td>{{ deposit.id }}</td>
             <td>{{ deposit.fin_prdt_nm }}</td>
             <td>{{ deposit.kor_co_nm }}</td>
-            <td>{{ deposit.dcls_month }}</td>
           </tr>
         </tbody>
       </table>

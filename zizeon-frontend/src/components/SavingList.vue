@@ -7,7 +7,11 @@
             <th>번호</th>
             <th>상품명</th>
             <th>회사명</th>
-            <th>공시월</th>
+            <th>적립유형명</th>
+            <th>6개월</th>
+            <th>12개월</th>
+            <th>24개월</th>
+            <th>36개월</th>
           </tr>
         </thead>
         <tbody>
@@ -15,7 +19,11 @@
             <td>{{ saving.id }}</td>
             <td>{{ saving.fin_prdt_nm }}</td>
             <td>{{ saving.kor_co_nm }}</td>
-            <td>{{ saving.dcls_month }}</td>
+            <td>자유적립식</td>
+            <td v-for="option in changeOption(saving, '자유적립식', 6)"><p>{{ option.intr_rate }}</p></td>
+            <td v-for="option in changeOption(saving, '자유적립식', 12)"><p>{{ option.intr_rate }}</p></td>
+            <td v-for="option in changeOption(saving, '자유적립식', 24)"><p>{{ option.intr_rate }}</p></td>
+            <td v-for="option in changeOption(saving, '자유적립식', 36)"><p>{{ option.intr_rate }}</p></td>
           </tr>
         </tbody>
       </table>
@@ -33,8 +41,13 @@
   
   const store = useSavingStore()
   const savings = ref([])
+  const options = ref([])
   const currentPage = ref(1)
   const itemsPerPage = 15
+
+  const changeOption = function (saving, type, trm) {
+      return options.value.filter((option) => option.saving == saving.id && option.rsrv_type_nm == type && option.save_trm == trm)
+  }
 
   const totalPages = computed(() => {
     return Math.ceil(savings.value.length / itemsPerPage)
@@ -61,6 +74,7 @@
   onMounted(async () => {
     await store.getSaving()
     savings.value = store.savings
+    options.value = store.savingoptions
   })
   </script>
   
