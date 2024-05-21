@@ -19,10 +19,12 @@ const content = ref(null)
 
 import axios from 'axios'
 import { useArticleStore } from '@/stores/articles'
+import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 
 const store = useArticleStore()
 const router = useRouter()
+const userstore = useUserStore()
 
 const createArticle = function() {
     axios({
@@ -31,8 +33,10 @@ const createArticle = function() {
         data: {
             title: title.value,
             content: content.value,
-            user: 1
         },
+        headers: {
+            Authorization: `Token ${userstore.token}`
+        }
     }) .then(() => {
         router.push({name:'article'})
     }) .catch(err => console.log(err))

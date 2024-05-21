@@ -11,6 +11,8 @@ import RecommendView from '@/views/RecommendView.vue'
 import QuizAnswerView from '@/views/QuizAnswerView.vue'
 import ArticleDetailView from '@/views/ArticleDetailView.vue'
 import ArticleCreateView from '@/views/ArticleCreateView.vue'
+import SignUpView from '@/views/SignUpView.vue'
+import LogInView from '@/views/LogInView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,14 +63,24 @@ const router = createRouter({
         component: QuizAnswerView
       },
     {
-    path: '/articles/:id',
-    name: 'ArticleDetail',
-    component: ArticleDetailView
+      path: '/articles/:id',
+      name: 'ArticleDetail',
+      component: ArticleDetailView
     },
     {
-    path: '/create',
-    name: 'ArticleCreate',
-    component: ArticleCreateView
+      path: '/create',
+      name: 'ArticleCreate',
+      component: ArticleCreateView
+    },
+    {
+      path: '/signup',
+      name: 'SignUpView',
+      component: SignUpView
+    },
+    {
+      path: '/login',
+      name: 'LogInView',
+      component: LogInView
     },
   ]
 })
