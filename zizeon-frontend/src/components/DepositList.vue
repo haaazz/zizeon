@@ -4,6 +4,7 @@
       <table>
         <thead>
           <tr>
+            <th>번호</th>
             <th>상품명</th>
             <th>회사명</th>
             <th>공시월</th>
@@ -11,6 +12,7 @@
         </thead>
         <tbody>
           <tr v-for="deposit in paginatedDeposits" :key="deposit.id">
+            <td>{{ deposit.id }}</td>
             <td>{{ deposit.fin_prdt_nm }}</td>
             <td>{{ deposit.kor_co_nm }}</td>
             <td>{{ deposit.dcls_month }}</td>

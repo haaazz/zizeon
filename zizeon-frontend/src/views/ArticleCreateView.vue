@@ -25,19 +25,20 @@ const store = useArticleStore()
 const router = useRouter()
 
 const createArticle = function() {
-    axios ({
-        method: 'post',
-        url: `${store.API_URL}/api/v1/articles/`,
+    axios({
+        method: 'post', 
+        url: `${store.API_URL}/articles/`,
         data: {
             title: title.value,
-            content: content.value
+            content: content.value,
+            user: 1
         },
     }) .then(() => {
-        router.push({name:'ArticleView'})
+        router.push({name:'article'})
     }) .catch(err => console.log(err))
 }
 </script>
-
+ 
 <style scoped>
 
 </style>

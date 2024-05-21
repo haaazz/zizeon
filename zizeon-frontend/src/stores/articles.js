@@ -4,12 +4,12 @@ import axios from 'axios'
 
 export const useArticleStore = defineStore('articlecounter', () => {
     const articles = ref([])
-    const API_URL = 'http://127.0.0.1:8000'
+    const API_URL = 'http://70.12.102.186:8000'
 
     const getArticles = function() {
         axios({
             method:'get',
-            url: `${API_URL}/api/v1/articles/`
+            url: `${API_URL}/articles/`
         })
         .then(res => {
             console.log(res)
