@@ -3,6 +3,7 @@ from django.conf import settings
 import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required
 from .models import Deposit, DepositOption, Saving, SavingOption
 from .serializers import DepositSerializer, DepositOptionSerializer, SavingSerializer, SavingOptionSerializer
 
@@ -60,13 +61,26 @@ def get_deposit(request):
 def deposit(request):
     deposits = Deposit.objects.all()
     serializers = DepositSerializer(deposits, many=True)
-    return Response(serializers.data)\
+    options = DepositOption.objects.all()
+    optionserializers = DepositOptionSerializer(options, many=True)
+    return Response({'deposits': serializers.data, 'options': optionserializers.data})
 
 @api_view(['GET'])
 def deposit_detail(request, pk):
     deposit = Deposit.objects.get(pk=pk)
+    depositoptions = DepositOption.objects.filter(fin_prdt_cd=deposit.fin_prdt_cd)
     serializer = DepositSerializer(deposit)
-    return Response(serializer.data)
+    serializers = DepositOptionSerializer(depositoptions, many=True)
+    return Response({'deposit': serializer.data, 'option': serializers.data})
+
+@login_required
+def open_deposit(request, pk):
+    deposit = Deposit.objects.get(pk=pk)
+    if request.user in deposit.opn_deposit_users.all():
+        deposit.opn_deposit_users.remove(request.user)
+    else:
+        deposit.opn_deposit_users.add(request.user)
+    return
 
 @api_view(['GET'])
 def get_saving(request):
@@ -121,10 +135,23 @@ def get_saving(request):
 def saving(request):
     savings = Saving.objects.all()
     serializers = SavingSerializer(savings, many=True)
-    return Response(serializers.data)
+    options = SavingOption.objects.all()
+    optionserializers = SavingOptionSerializer(options, many=True)
+    return Response({'savings': serializers.data, 'options': optionserializers.data})
 
 @api_view(['GET'])
 def saving_detail(request, pk):
     saving = Saving.objects.get(pk=pk)
+    savingoptions = SavingOption.objects.filter(fin_prdt_cd=saving.fin_prdt_cd)
     serializer = SavingSerializer(saving)
-    return Response(serializer.data)
+    serializers = SavingOptionSerializer(savingoptions, many=True)
+    return Response({'saving': serializer.data, 'options': serializers.data})
+
+@api_view(['POST'])
+def open_saving(request, pk):
+    saving = Saving.objects.get(pk=pk)
+    if request.user in saving.opn_saving_users.all():
+        saving.opn_saving_users.remove(request.user)
+    else:
+        saving.opn_saving_users.add(request.user)
+    return Response()

@@ -64,4 +64,4 @@ class OpenDeposit(models.Model):
 class OpenSaving(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     saving = models.ForeignKey(Saving, on_delete=models.CASCADE)
-    balance = models.IntegerField()
+    balance = models.IntegerField(null=True, blank=True)
