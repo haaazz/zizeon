@@ -2,6 +2,7 @@ from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
 from django.contrib.auth import get_user_model
+from .models import OpenDeposit, OpenSaving
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField(required=True, allow_blank=False)
@@ -47,3 +48,15 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         model = UserModel
         fields = ('pk', *extra_fields)
         read_only_fields = ('email',)
+
+class OpenDepositSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OpenDeposit
+        fields = '__all__'
+        read_only_fields = ('user', 'deposit',)
+
+class OpenSavingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OpenSaving
+        fields = '__all__'
+        read_only_fields = ('user', 'saving',)

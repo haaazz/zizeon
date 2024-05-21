@@ -3,7 +3,7 @@ from . import views
 
 app_name = 'accounts'
 urlpatterns = [
-    path('<int:pk>/deposits/', views.deposits),
-    path('<int:pk>/savings/', views.savings),
-    path('<int:pk>/articles/', views.articles),
+    path('deposits/', views.deposits),
+    path('savings/', views.savings),
+    path('articles/', views.articles),
 ]

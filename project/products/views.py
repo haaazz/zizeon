@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from django.contrib.auth.decorators import login_required
 from .models import Deposit, DepositOption, Saving, SavingOption
 from .serializers import DepositSerializer, DepositOptionSerializer, SavingSerializer, SavingOptionSerializer
+from accounts.serializers import OpenDepositSerializer, OpenSavingSerializer
+from rest_framework import status
 
 # Create your views here.
 @api_view(['GET'])
@@ -74,13 +76,14 @@ def deposit_detail(request, pk):
     return Response({'deposit': serializer.data, 'option': serializers.data})
 
 @login_required
+@api_view(['POST'])
 def open_deposit(request, pk):
     deposit = Deposit.objects.get(pk=pk)
-    if request.user in deposit.opn_deposit_users.all():
-        deposit.opn_deposit_users.remove(request.user)
-    else:
-        deposit.opn_deposit_users.add(request.user)
-    return
+    serializer = OpenDepositSerializer(deposit)
+    return Response(request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=request.user, )
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 def get_saving(request):
@@ -150,8 +153,8 @@ def saving_detail(request, pk):
 @api_view(['POST'])
 def open_saving(request, pk):
     saving = Saving.objects.get(pk=pk)
-    if request.user in saving.opn_saving_users.all():
-        saving.opn_saving_users.remove(request.user)
-    else:
-        saving.opn_saving_users.add(request.user)
-    return Response()
+    if request.method == 'POST':
+        serializer = OpenSavingSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user, saving=saving)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
