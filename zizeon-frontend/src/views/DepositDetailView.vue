@@ -32,7 +32,6 @@ onMounted(() => {
     .then((res) => {
         deposit.value = res.data.deposit
         options.value = res.data.options
-        console.log(deposit.value)
     })
     .catch(err => console.log(err))
     })
