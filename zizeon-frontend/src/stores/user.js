@@ -11,7 +11,7 @@ export const useUserStore = defineStore('usercounter', () => {
     const username = payload.username
     const password = payload.password
 
-    axios({
+    return axios({
         method:'post',
         url: `${API_URL}/accounts/login/`,
         data: {
@@ -25,6 +25,8 @@ export const useUserStore = defineStore('usercounter', () => {
         console.log(token)
     })
     .catch(err => console.log(err))
+
+
   }
 
   const signUp = function(payload) {
@@ -38,7 +40,7 @@ export const useUserStore = defineStore('usercounter', () => {
     const job = payload.job
     const income = payload.income
 
-    axios({
+    return axios({
         method: 'post',
         url: `${API_URL}/accounts/signup/`,
         data: {

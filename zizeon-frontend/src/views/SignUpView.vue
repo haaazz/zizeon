@@ -38,8 +38,10 @@
 
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 
 const store = useUserStore()
+const router = useRouter()
 
 const username = ref(null)
 const password1 = ref(null)
@@ -64,6 +66,12 @@ const signUp = function() {
         gender: gender.value
     }
     store.signUp(payload)
+        .then(response => {
+                    router.push({ name: 'home' })
+                })
+        .catch(err => {
+            console.error('회원가입 실패:', err.response.data)
+        })
 }
 
 </script>
