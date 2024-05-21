@@ -5,7 +5,7 @@ import axios from 'axios'
 export const useSavingStore = defineStore('savingcounter', () => {
   const savings = ref([])
   const savingoptions = ref([])
-  const API_URL = 'http://70.12.102.186:8000'
+  const API_URL = 'http://192.168.35.77:8000'
 
   const getSaving = function() {
     axios({

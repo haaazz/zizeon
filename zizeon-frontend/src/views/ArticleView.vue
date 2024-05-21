@@ -29,12 +29,12 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useArticleStore } from '@/stores/articles'
 import { RouterLink } from 'vue-router'
 
 const store = useArticleStore()
-
+const articles = ref([])
 const currentPage = ref(1)
 const articlesPerPage = 15
 
@@ -59,11 +59,10 @@ function prevPage() {
 }
 
 //  article onMounted 해서 가져와야함 지금 store.article에 암것도 안들어가있음
-//   onMounted(async () => {
-//     await store.getDeposit()
-//     deposits.value = store.deposits
-//     options.value = store.depositoptions
-//   })
+  onMounted(async () => {
+    await store.getArticles()
+    articles.value = store.articles
+  })
 
 </script>
 
