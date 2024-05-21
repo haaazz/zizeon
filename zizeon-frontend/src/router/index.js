@@ -13,6 +13,8 @@ import ArticleDetailView from '@/views/ArticleDetailView.vue'
 import ArticleCreateView from '@/views/ArticleCreateView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import LogInView from '@/views/LogInView.vue'
+import DepositDetailView from '@/views/DepositDetailView.vue'
+import SavingDetailView from '@/views/SavingDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,6 +83,16 @@ const router = createRouter({
       path: '/login',
       name: 'LogInView',
       component: LogInView
+    },
+    {
+      path: '/deposit/:id',
+      name: 'DepositDetail',
+      component: DepositDetailView
+    },
+    {
+      path: '/saving/:id',
+      name: 'SavingDetail',
+      component: SavingDetailView
     },
   ]
 })

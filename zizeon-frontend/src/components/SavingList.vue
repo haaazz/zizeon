@@ -17,7 +17,7 @@
         <tbody>
           <tr v-for="saving in paginatedSavings" :key="saving.id">
             <td>{{ saving.id }}</td>
-            <td>{{ saving.fin_prdt_nm }}</td>
+            <td><RouterLink :to="{ name: 'SavingDetail', params: { id: saving.id } }">{{ saving.fin_prdt_nm }}</RouterLink></td>
             <td>{{ saving.kor_co_nm }}</td>
             <td>자유적립식</td>
             <td v-for="option in changeOption(saving, '자유적립식', 6)"><p>{{ option.intr_rate }}</p></td>
@@ -38,6 +38,7 @@
   <script setup>
   import { ref, computed, onMounted } from 'vue'
   import { useSavingStore } from '@/stores/saving'
+  import { RouterLink } from 'vue-router'
   
   const store = useSavingStore()
   const savings = ref([])
