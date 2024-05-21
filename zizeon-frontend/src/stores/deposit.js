@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export const useDepositStore = defineStore('depositcounter', () => {
   const deposits = ref([])
-  const API_URL = 'http://127.0.0.1:8000'
+  const API_URL = 'http://70.12.102.186:8000'
 
   const getDeposit = function () {
     axios({
