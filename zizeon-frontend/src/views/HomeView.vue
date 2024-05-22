@@ -1,19 +1,29 @@
 <template>
     <div>
-        <h1>zㅣ젼킹왕짱;;</h1>
+      <h1>zㅣ젼킹왕짱;;</h1>
     </div>
-    <div>
-        <RouterLink :to="{ name: 'SignUpView' }"> 회원가입 </RouterLink>
-        <RouterLink :to="{ name: 'LogInView' }"> 로그인 </RouterLink>
-
+    <div v-if="!store.isLogin">
+      <RouterLink :to="{ name: 'SignUpView' }">회원가입</RouterLink>
+      <RouterLink :to="{ name: 'LogInView' }">로그인</RouterLink>
     </div>
-</template>
-
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-
-</script>
-
-<style scoped>
-
-</style>
+    <div v-else>
+      어서오시게나 {{ store.username }}
+      <button @click="logout">잘가시게</button>
+    </div>
+  </template>
+  
+  <script setup>
+  import { RouterLink } from 'vue-router'
+  import { useUserStore } from '@/stores/user'
+  
+  const store = useUserStore()
+  
+  const logout = () => {
+    store.logOut() // logOut 메서드 호출
+  }
+  </script>
+  
+  <style scoped>
+  /* 스타일 추가 */
+  </style>
+  

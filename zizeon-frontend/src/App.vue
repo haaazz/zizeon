@@ -9,7 +9,7 @@
         <RouterLink :to="'/map'" class="nav-link" :class="{ 'active-link': $route.path === '/map' }"> 근처 은행 </RouterLink> |
         <RouterLink :to="'/exchange'" class="nav-link" :class="{ 'active-link': $route.path === '/exchange' }"> 환율 정보 </RouterLink> |
         <RouterLink :to="'/article'" class="nav-link" :class="{ 'active-link': $route.path === '/article' }"> 커뮤니티 </RouterLink> |
-        <RouterLink :to="'/mypage'" class="nav-link" :class="{ 'active-link': $route.path === '/mypage' }"> 마이페이지 </RouterLink>
+        <RouterLink :to="'/mypage'" class="nav-link" :class="{ 'active-link': $route.path === '/mypage' }" @click="checkLogin"> 마이페이지 </RouterLink>
       </nav>
       <hr>
     </div>
@@ -20,7 +20,21 @@
 </template>
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+
+const store = useUserStore()
+const router = useRouter()
+
+const checkLogin = () => {
+  if (!store.isLogin) {
+    alert('로그인이 필요합니당')
+    router.push('/')
+  }
+  else {
+    router.push('mypage')
+  }
+}
 </script>
 
 <style scoped>
