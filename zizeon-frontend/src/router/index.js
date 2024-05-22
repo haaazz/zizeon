@@ -16,6 +16,7 @@ import LogInView from '@/views/LogInView.vue'
 import DepositDetailView from '@/views/DepositDetailView.vue'
 import SavingDetailView from '@/views/SavingDetailView.vue'
 import ProfileEditView from '@/views/ProfileEditView.vue'
+import EditArticleView from '@/views/EditArticleView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -99,6 +100,11 @@ const router = createRouter({
       path: '/profileEdit',
       name: 'profileEdit',
       component: ProfileEditView
+    },
+    {
+      path: '/editArticle',
+      name: 'editArticle',
+      component: EditArticleView
     },
   ]
 })
