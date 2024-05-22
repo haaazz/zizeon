@@ -29,11 +29,29 @@
         <label for="age">나이:</label>
         <input type="text" id="age" v-model.trim="age"><br>
   
-        <label for="job">직업:</label>
-        <input type="text" id="job" v-model.trim="job"><br>
+        <label for="job">직업</label>
+          <select id="job" v-model="job">
+            <option value="Analyst">어널리스트</option>
+            <option value="Teacher">센세</option>
+            <option value="Lawyer">변호사</option>
+            <option value="Researcher">조사하는사람</option>
+            <option value="Photographer">사진작가</option>
+            <option value="Manager">마네쟈</option>
+            <option value="Writer">작가</option>
+            <option value="Designer">디자이너</option>
+            <option value="Doctor">의사</option>
+            <option value="Artist">예술가</option>
+            <option value="Nurse">간호사</option>
+            <option value="Chef">요리사</option>
+            <option value="Student">학생</option>
+            <option value="Engineer">엔지니어</option>
+            <option value="Marketer">마케터</option>
+            <option value="Developer">Developer</option>
+            <option value="Accountant">회계사</option>
+          </select>
   
         <label for="income">연봉:</label>
-        <input type="text" id="income" v-model.trim="income"><br>
+        <input type="text" id="income" v-model.trim="income">,000원<br>
   
         <input type="submit" value="회원가입 완료">
       </form>
@@ -54,7 +72,7 @@
   const email = ref('')
   const age = ref('')
   const nickname = ref('')
-  const job = ref('')
+  const job = ref(null)
   const income = ref('')
   const gender = ref(null)
   

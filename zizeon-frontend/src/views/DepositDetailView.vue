@@ -8,12 +8,12 @@
         <h3>금융회사명: {{ deposit.kor_co_nm }}</h3>
     </div>
 
-    <form v-if="userstore.isLogin">
-        <label for="balance"> 예치금: </label>
-        <input type="number" id="balance" v-model="balance">
-        <button @click.prevent="open">가입</button>
-    </form>
-
+        <form v-if="userstore.isLogin">
+            <label for="balance"> 예치금: </label>
+            <input type="number" id="balance" v-model="balance">
+            <button @click.prevent="open">가입</button>
+        </form>
+        
     <div v-for="option in options" :key="option.id">
         <hr>
         <p>저축금리:{{ option.intr_rate }}</p>
@@ -39,6 +39,7 @@ const options = ref(null)
 const balance = ref(0)
 
 const open = function () {
+    
     axios({
         method:'post',
         url: `${store.API_URL}/products/deposit/${route.params.id}/open/`,

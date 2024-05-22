@@ -32,7 +32,6 @@ const content = ref('')
 const articleId = ref(null)
 
 onMounted(() => {
-    // 쿼리 파라미터에서 값 가져오기
     articleId.value = route.query.id
     title.value = route.query.title
     content.value = route.query.content

@@ -24,22 +24,22 @@ export const useUserStore = defineStore('usercounter', () => {
         console.log(res.data)
         token.value = res.data.key
         console.log(res.data.key)
-        axios({
-          method: 'get',
-          url: `${API_URL}/accounts/user/`,
-          headers: {
-            Authorization: `Token ${res.data.key}`
-          }
-        })
-        .then(res2 => {
-          console.log('성공!')
-          nickname.value = res2.data.nickname
-        })
-        .catch(err2 => {
-          console.log('실패!')
-          console.log(res.data.key)
-          console.log(err2)
-        })
+        // axios({
+        //   method: 'get',
+        //   url: `${API_URL}/accounts/user/`,
+        //   headers: {
+        //     Authorization: `Token ${res.data.key}`
+        //   }
+        // })
+        // .then(res2 => {
+        //   console.log('성공!')
+        //   nickname.value = res2.data.nickname
+        // })
+        // .catch(err2 => {
+        //   console.log('실패!')
+        //   console.log(res.data.key)
+        //   console.log(err2)
+        // })
 
 
 
