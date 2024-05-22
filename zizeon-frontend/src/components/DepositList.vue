@@ -73,11 +73,17 @@
     }
   }
   
-  onMounted(async () => {
-    await store.getDeposit()
-    deposits.value = store.deposits
-    options.value = store.depositoptions
-  })
+  onMounted(() => {
+    store.getDeposit()
+      .then(() => {
+        deposits.value = store.deposits
+        options.value = store.depositoptions
+      })
+      .catch(err => {
+        console.error('데이터 로딩 실패:', err)
+      })
+    })
+
   </script>
   
   

@@ -3,9 +3,16 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export const useUserStore = defineStore('usercounter', () => {
-  const API_URL = 'http://192.168.35.77:8000'
-
+  const API_URL = 'http://70.12.102.186:8000'
   const token = ref(null)
+
+  const isLogin = computed(() => {
+    if (token.value === null) {
+      return false
+    } else {
+      return true
+    }
+  })
   
   const logIn = function(payload) {
     const username = payload.username
@@ -46,9 +53,11 @@ export const useUserStore = defineStore('usercounter', () => {
     })
     .then(res => {
         console.log('회원가입이 완료되어씁니다')
+        const password = password1
+        logIn({ username, password })
     })
     .catch(err => console.log(err))
   }
 
-  return { API_URL, signUp, logIn, token }
+  return { API_URL, signUp, logIn, token, isLogin }
 }, { persist : true } )

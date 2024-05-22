@@ -71,11 +71,16 @@
       currentPage.value--
     }
   }
-  
-  onMounted(async () => {
-    await store.getSaving()
-    savings.value = store.savings
-    options.value = store.savingoptions
+
+  onMounted(() => {
+  store.getSaving()
+    .then(() => {
+      savings.value = store.savings
+      options.value = store.savingoptions
+    })
+    .catch(err => {
+      console.error('데이터 로딩 실패:', err)
+    })
   })
   </script>
   
