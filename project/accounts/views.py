@@ -7,6 +7,8 @@ from .models import OpenDeposit, OpenSaving
 from .serializers import OpenDepositSerializer, OpenSavingSerializer, UserSerialzer
 from articles.models import Article
 from articles.serializers import ArticleSerializer
+from products.models import Deposit, Saving
+from products.serializers import DepositSerializer, SavingSerializer
 
 # Create your views here.
 @api_view(['GET'])
@@ -28,29 +30,10 @@ def articles(request):
 import pandas as pd
 import sqlite3
 from sklearn.preprocessing import LabelEncoder
+from sklearn.neighbors import KNeighborsClassifier
 
 con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 le = LabelEncoder()
-gender_list = {'Male': 1, 'Female': 2}
-job_list = {
-    'Analyst': 1,
-    'Teacher': 2,
-    'Lawyer': 3,
-    'Researcher': 4,
-    'Photographer': 5,
-    'Manager': 6,
-    'Writer': 7,
-    'Designer': 8,
-    'Doctor': 9,
-    'Artist': 10,
-    'Nurse': 11,
-    'Chef': 12,
-    'Student': 13,
-    'Engineer': 14,
-    'Marketer': 15,
-    'Developer': 16,
-    'Accountant': 17
-}
 
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
@@ -75,13 +58,34 @@ def recommend(request):
     saving_test = user[user['id'] == request.user.pk]
     saving_test = saving_test.drop('id', axis=1)
 
+    deposit_test['gender'] = le.fit_transform(deposit_train['gender'].values)[deposit_train[deposit_train['gender'].values == deposit_test['gender'].values].index[0]]
+    deposit_test['job'] = le.fit_transform(deposit_train['job'].values)[deposit_train[deposit_train['job'].values == deposit_test['job'].values].index[0]]
     deposit_train['gender'] = le.fit_transform(deposit_train['gender'].values)
     deposit_train['job'] = le.fit_transform(deposit_train['job'].values)
+    saving_test['gender'] = le.fit_transform(saving_train['gender'].values)[saving_train[saving_train['gender'].values == saving_test['gender'].values].index[0]]
+    saving_test['job'] = le.fit_transform(saving_train['job'].values)[saving_train[saving_train['job'].values == saving_test['job'].values].index[0]]
     saving_train['gender'] = le.fit_transform(saving_train['gender'].values)
     saving_train['job'] = le.fit_transform(saving_train['job'].values)
 
-    return Response({'test': deposit_train})
+    deposit_knn = KNeighborsClassifier(n_neighbors=3)
+    deposit_knn.fit(deposit_train, deposit_target)
+    deposit_pred = deposit_knn.predict_proba(deposit_test)
+    saving_knn = KNeighborsClassifier(n_neighbors=3)
+    saving_knn.fit(saving_train, saving_target)
+    saving_pred = saving_knn.predict_proba(saving_test)
 
+    deposit_res = pd.DataFrame(deposit_pred[0], columns=['pred_proba']).sort_values(by='pred_proba', ascending=False).head(3)
+    deposit_idx = list(deposit_res.index)
+    saving_res = pd.DataFrame(saving_pred[0], columns=['pred_proba']).sort_values(by='pred_proba', ascending=False).head(3)
+    saving_idx = list(saving_res.index)
+
+    deposits_recommend = Deposit.objects.filter(pk__in=deposit_idx)
+    deposits_serializers = DepositSerializer(deposits_recommend, many=True)
+    savings_recommend = Saving.objects.filter(pk__in=saving_idx)
+    savings_serializers = SavingSerializer(savings_recommend, many=True)
+
+    return Response({'deposit': deposits_serializers.data, 'saving': savings_serializers.data})
+    
 @api_view(['DELETE', 'PUT'])
 # @permission_classes(IsAuthenticated)
 def update(request):
