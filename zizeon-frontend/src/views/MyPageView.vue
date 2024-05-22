@@ -4,7 +4,10 @@
     <h3>가입한 적금 목록</h3>
     <ul>
       <li v-for="saving in savings" :key="saving.id">
-        <p v-for="s in savingsInfo(saving.saving)">{{ s }}</p>
+        <p v-for="s in savingsInfo(saving.saving)">
+          상품명: <RouterLink :to="{ name: 'SavingDetail', params: { id: s.id } }">{{ s.fin_prdt_nm }}</RouterLink>
+        </p>
+        <p v-for="s in savingsInfo(saving.saving)">회사명: {{ s.kor_co_nm }}</p>
       </li>
     </ul>
   </div>
@@ -26,6 +29,7 @@
   }
 
   onMounted(() => {
+    store.getSaving(),
     axios({
       method: 'get',
       url: `${store.API_URL}/accounts/savings/`,

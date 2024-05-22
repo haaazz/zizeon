@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export const useUserStore = defineStore('usercounter', () => {
-  const API_URL = 'http://192.168.35.77:8000'
+  const API_URL = 'http://70.12.102.186:8000'
 
   const token = ref(null)
   

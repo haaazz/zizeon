@@ -1,14 +1,15 @@
 <template>
   <div>
     <h1>디테일</h1>
-    <!-- <h3>금융상품명: {{ saving.fin_prdt_nm }}</h3> -->
-    <!-- <h3>금융회사명: {{ saving.kor_co_nm }}</h3> -->
-    <form v-if="check(saving.id)">
+    <!-- <h3>금융상품명: {{ saving.fin_prdt_nm }}</h3>
+    <h3>금융회사명: {{ saving.kor_co_nm }}</h3> -->
+    <!-- <form v-if="check(saving.id)"> -->
+    <form>
       <label for="balance">예치금: </label>
       <input type="number" id="balance" v-model="balance">
-      <button @click="open">가입</button>
+      <button @click="open()">가입</button>
     </form>
-    <p v-else>이미 가입한 적금 상품입니다!</p>
+    <!-- <p v-else>이미 가입한 적금 상품입니다!</p> -->
     <div v-for="option in options">
       <hr>
       <p>적립유형: {{ option.rsrv_type_nm }}</p>
@@ -74,20 +75,20 @@
       })
       .catch((error) => {
         console.log(error)
-      }),
-    axios({
-      method: 'get',
-      url: `${store.API_URL}/accounts/savings/`,
-      headers: {
-        Authorization: `Token ${userstore.token}`
-      }
-    })
-      .then((response) => {
-        openedSavings.value = response.data
       })
-      .catch((error) => {
-        console.log(error)
-      })
+    // axios({
+    //   method: 'get',
+    //   url: `${store.API_URL}/accounts/savings/`,
+    //   headers: {
+    //     Authorization: `Token ${userstore.token}`
+    //   }
+    // })
+    //   .then((response) => {
+    //     openedSavings.value = response.data
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   })
 </script>
 
