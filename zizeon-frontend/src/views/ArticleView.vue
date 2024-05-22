@@ -7,7 +7,6 @@
         <tr>
           <th>ID</th>
           <th>제목</th>
-          <th>내용</th>
           <th>자세히</th>
         </tr>
       </thead>
@@ -15,7 +14,6 @@
         <tr v-for="article in paginatedArticles" :key="article.id">
           <td>{{ article.id }}</td>
           <td>{{ article.title }}</td>
-          <td>{{ article.content.slice(0, 20) }}</td>
           <td><RouterLink :to="{ name: 'ArticleDetail', params: { id: article.id }}">[자세히]</RouterLink></td>
         </tr>
       </tbody>
