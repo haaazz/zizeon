@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>커뮤니티</h1>
+    <div v-if="userStore.isLogin">
     <RouterLink :to="{name:'ArticleCreate'}">[게시글 작성]</RouterLink>
+    </div>
     <table>
       <thead>
         <tr>
@@ -30,11 +32,13 @@
 import { ref, onMounted, computed } from 'vue'
 import { useArticleStore } from '@/stores/articles'
 import { RouterLink } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 
 const store = useArticleStore()
 const articles = ref([])
 const currentPage = ref(1)
 const articlesPerPage = 15
+const userStore = useUserStore()
 
 const paginatedArticles = computed(() => {
   const startIndex = (currentPage.value - 1) * articlesPerPage
@@ -56,7 +60,6 @@ function prevPage() {
   }
 }
 
-//  article onMounted 해서 가져와야함 지금 store.article에 암것도 안들어가있음
   onMounted(async () => {
     await store.getArticles()
     articles.value = store.articles

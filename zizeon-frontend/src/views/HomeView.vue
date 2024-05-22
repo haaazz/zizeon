@@ -3,11 +3,11 @@
       <h1>zㅣ젼킹왕짱;;</h1>
     </div>
     <div v-if="!store.isLogin">
-      <RouterLink :to="{ name: 'SignUpView' }">회원가입</RouterLink>
+      <RouterLink :to="{ name: 'SignUpView' }">회원가입</RouterLink> | 
       <RouterLink :to="{ name: 'LogInView' }">로그인</RouterLink>
     </div>
     <div v-else>
-      어서오시게나 {{ store.username }}
+      어서오시게나 {{ store.nickname }}
       <button @click="logout">잘가시게</button>
     </div>
   </template>
@@ -19,7 +19,7 @@
   const store = useUserStore()
   
   const logout = () => {
-    store.logOut() // logOut 메서드 호출
+    store.logout()
   }
   </script>
   

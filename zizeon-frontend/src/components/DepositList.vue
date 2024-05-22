@@ -72,6 +72,16 @@
       currentPage.value--
     }
   }
+
+  const filteredDeposits = computed(() => {
+  if (!selectedCompany.value) return deposits.value
+  return deposits.value.filter(deposit => deposit.kor_co_nm === selectedCompany.value)
+})
+
+  // 고유 회사 목록을 추출하는 계산된 속성
+  const Banks = computed(() => {
+    return [...new Set(deposits.value.map(deposit => deposit.kor_co_nm))]
+  })
   
   onMounted(() => {
     store.getDeposit()

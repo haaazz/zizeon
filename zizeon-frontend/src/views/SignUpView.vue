@@ -17,9 +17,15 @@
         <label for="nickname">닉네임:</label>
         <input type="text" id="nickname" v-model.trim="nickname"><br>
   
-        <label for="gender">성별:</label>
-        <input type="text" id="gender" v-model.trim="gender"><br>
-  
+        <label> 성별 </label>
+        <div>
+        <label for="Male">남성</label>
+        <input type="radio" id="Male" value="Male" v-model="gender"><br>
+
+        <label for="Female">여성</label>
+        <input type="radio" id="Female" value="Female" v-model="gender"><br>
+        </div>
+
         <label for="age">나이:</label>
         <input type="text" id="age" v-model.trim="age"><br>
   
@@ -50,7 +56,7 @@
   const nickname = ref('')
   const job = ref('')
   const income = ref('')
-  const gender = ref('')
+  const gender = ref(null)
   
   const signUp = () => {
     const payload = {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>마이페이지</h1>
+    <button @click="ProfileEdit">회원 정보 수정</button>
     <h3>가입한 적금 목록</h3>
     <ul>
       <li v-for="saving in savings" :key="saving.id">
@@ -30,10 +31,12 @@
   import { useDepositStore } from '@/stores/deposit'
   import { useUserStore } from '@/stores/user'
   import { ref, onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
 
   const store = useSavingStore()
   const userstore = useUserStore()
   const destore = useDepositStore()
+  const router = useRouter()
 
   const savings = ref([])
   const deposits = ref([])
@@ -46,26 +49,21 @@
     return destore.deposits.filter((deposit) => deposit.id === pk)
   }
 
+  const ProfileEdit = () => {
+    router.push('/profileEdit')
+  }
+
   onMounted(() => {
-  Promise.all([
     axios({
       method: 'get',
-      url: `${store.API_URL}/accounts/savings/`,
-      headers: {
-        Authorization: `Token ${userstore.token}`
-      }
-    }),
-    axios({
-      method: 'get',
-      url: `${destore.API_URL}/accounts/deposits/`,
+      url: `${store.API_URL}/accounts/products/`,
       headers: {
         Authorization: `Token ${userstore.token}`
       }
     })
-  ])
-    .then(([savingsResponse, depositsResponse]) => {
-      savings.value = savingsResponse.data
-      deposits.value = depositsResponse.data
+    .then((response) => {
+      savings.value = response.data.open_savings
+      deposits.value = response.data.open_deposits
     })
     .catch((error) => {
       console.log(error)

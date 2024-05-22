@@ -12,7 +12,7 @@ export const useArticleStore = defineStore('articlecounter', () => {
             url: `${API_URL}/articles/`
         })
         .then(res => {
-            articles.value = res.data
+            articles.value = res.data.sort((a, b) => b.id - a.id)
         })
         .catch(err => console.log(err))
     }
