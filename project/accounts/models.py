@@ -8,7 +8,7 @@ class User(AbstractUser):
     opn_deposits = models.ManyToManyField(Deposit, related_name='opn_deposit_users', through='OpenDeposit')
     opn_savings = models.ManyToManyField(Saving, related_name='opn_saving_users', through='OpenSaving')
     nickname = models.CharField(max_length=30)
-    gender = models.CharField(max_length=5)
+    gender = models.CharField(max_length=10)
     age = models.IntegerField(null=True, blank=True)
     job = models.TextField()
     income = models.IntegerField(null=True, blank=True)

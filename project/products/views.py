@@ -8,6 +8,10 @@ from .models import Deposit, DepositOption, Saving, SavingOption
 from .serializers import DepositSerializer, DepositOptionSerializer, SavingSerializer, SavingOptionSerializer
 from accounts.serializers import OpenDepositSerializer, OpenSavingSerializer
 from rest_framework import status
+import pandas as pd
+import sqlite3
+
+con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 
 # Create your views here.
 @api_view(['GET'])
@@ -75,15 +79,25 @@ def deposit_detail(request, pk):
     serializers = DepositOptionSerializer(depositoptions, many=True)
     return Response({'deposit': serializer.data, 'option': serializers.data})
 
-@login_required
 @api_view(['POST'])
 def open_deposit(request, pk):
     deposit = Deposit.objects.get(pk=pk)
-    serializer = OpenDepositSerializer(deposit)
-    return Response(request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(user=request.user, )
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    if request.method == 'POST':
+        serializer = OpenDepositSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user, deposit=deposit)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def deposit_recommend(request):
+    user = pd.read_sql("SELECT * FROM accounts_user", con, index_col=None)
+    user = user.drop(['password', 'last_login', 'is_superuser', 'is_staff', 'username', 'first_name', 'last_name', 'email', 'nickname', 'date_joined'], axis=1)
+    opendeposit = pd.read_sql("SELECT * FROM accounts_opendeposit", con, index_col=None)
+    df = pd.merge(opendeposit, user.rename(columns={'id': 'user_id'}), on='user_id')
+    majority = list(df.deposit_id.value_counts().head(5).index)
+    deposits = Deposit.objects.filter(pk__in=majority)
+    serializers = DepositSerializer(deposits, many=True)
+    return Response(serializers.data)
 
 @api_view(['GET'])
 def get_saving(request):
@@ -158,3 +172,14 @@ def open_saving(request, pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user, saving=saving)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def saving_recommend(request):
+    user = pd.read_sql("SELECT * FROM accounts_user", con, index_col=None)
+    user = user.drop(['password', 'last_login', 'is_superuser', 'is_staff', 'username', 'first_name', 'last_name', 'email', 'nickname', 'date_joined'], axis=1)
+    opensaving = pd.read_sql("SELECT * FROM accounts_opensaving", con, index_col=None)
+    df = pd.merge(opensaving, user.rename(columns={'id': 'user_id'}), on='user_id')
+    majority = list(df.saving_id.value_counts().head(5).index)
+    savings = Saving.objects.filter(pk__in=majority)
+    serializers = SavingSerializer(savings, many=True)
+    return Response(serializers.data)

@@ -60,3 +60,8 @@ class OpenSavingSerializer(serializers.ModelSerializer):
         model = OpenSaving
         fields = '__all__'
         read_only_fields = ('user', 'saving',)
+
+class UserSerialzer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = '__all__'
