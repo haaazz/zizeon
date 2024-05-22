@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.contrib.auth.decorators import login_required
 from .models import Deposit, DepositOption, Saving, SavingOption
 from .serializers import DepositSerializer, DepositOptionSerializer, SavingSerializer, SavingOptionSerializer
+from accounts.models import OpenDeposit, OpenSaving
 from accounts.serializers import OpenDepositSerializer, OpenSavingSerializer
 from rest_framework import status
 import pandas as pd
@@ -87,6 +88,15 @@ def open_deposit(request, pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user, deposit=deposit)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['DELETE'])
+def cancel_deposit(request, deposit_pk, open_pk):
+    deposit = OpenDeposit.objects.get(pk=open_pk)
+    if request.user != deposit.user:
+        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+    else:
+        deposit.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def deposit_recommend(request):
@@ -172,6 +182,15 @@ def open_saving(request, pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user, saving=saving)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['DELETE'])
+def cancel_saving(request, saving_pk, open_pk):
+    saving = OpenSaving.objects.get(pk=open_pk)
+    if request.user != saving.user:
+        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+    else:
+        saving.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def saving_recommend(request):
