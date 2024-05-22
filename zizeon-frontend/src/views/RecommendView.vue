@@ -4,7 +4,13 @@
     <h3>추천 적금 목록</h3>
     <ul>
       <li v-for="saving in recommendSavings" :key="saving.id">
-        <p>상품명: <RouterLink :to="{ name: 'SavingDetail', params: { id: saving.id } }">{{ saving.fin_prdt_nm }}</RouterLink></p>
+        <p>
+          상품명:
+          <RouterLink
+            :to="{ name: 'SavingDetail', params: { id: saving.id } }"
+            >{{ saving.fin_prdt_nm }}</RouterLink
+          >
+        </p>
         <p>회사명: {{ saving.kor_co_nm }}</p>
       </li>
     </ul>
@@ -12,28 +18,26 @@
 </template>
 
 <script setup>
-  import axios from 'axios'
-  import { onMounted, ref } from 'vue'
-  import { useUserStore } from '@/stores/user'
+import axios from "axios";
+import { onMounted, ref } from "vue";
+import { useUserStore } from "@/stores/user";
 
-  const store = useUserStore()
+const store = useUserStore();
 
-  const recommendSavings = ref([])
-  
-  onMounted(() => {
-    axios({
-      method: 'get',
-      url: `${store.API_URL}/products/saving/recommend`,
-    })
-      .then((response) => {
-        recommendSavings.value = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+const recommendSavings = ref([]);
+
+onMounted(() => {
+  axios({
+    method: "get",
+    url: `${store.API_URL}/products/saving/recommend`,
   })
+    .then((response) => {
+      recommendSavings.value = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -8,13 +8,12 @@
 
     <form v-if="userstore.isLogin">
       <label for="balance">예치금: </label>
-      <input type="number" id="balance" v-model="balance">
+      <input type="number" id="balance" v-model="balance" />
       <button @click.prevent="open">가입</button>
     </form>
 
-
     <div v-for="option in options" :key="option.id">
-      <hr>
+      <hr />
       <p>적립유형: {{ option.rsrv_type_nm }}</p>
       <p>저축기간: {{ option.save_trm }}</p>
       <p>저축금리: {{ option.intr_rate }}</p>
@@ -24,60 +23,59 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useSavingStore } from '@/stores/saving'
-import { useUserStore } from '@/stores/user'
-import { useRoute, useRouter } from 'vue-router'
-import axios from 'axios'
+import { ref, onMounted } from "vue";
+import { useSavingStore } from "@/stores/saving";
+import { useUserStore } from "@/stores/user";
+import { useRoute, useRouter } from "vue-router";
+import axios from "axios";
 
-const store = useSavingStore()
-const route = useRoute()
-const router = useRouter()
-const userstore = useUserStore()
+const store = useSavingStore();
+const route = useRoute();
+const router = useRouter();
+const userstore = useUserStore();
 
-const saving = ref(null)
-const options = ref(null)
-const balance = ref(0)
+const saving = ref(null);
+const options = ref(null);
+const balance = ref(0);
 
 const open = function () {
   axios({
-    method: 'post',
+    method: "post",
     url: `${store.API_URL}/products/saving/${route.params.id}/open/`,
     data: {
-      balance: balance.value
+      balance: balance.value,
     },
     headers: {
-      Authorization: `Token ${userstore.token}`
-    }
+      Authorization: `Token ${userstore.token}`,
+    },
   })
     .then((response) => {
-      router.push({ name: 'mypage' })
+      router.push({ name: "mypage" });
     })
     .catch((error) => {
-      console.log(userstore.token)
-      console.log(balance.value)
-    })
-}
+      console.log(userstore.token);
+      console.log(balance.value);
+    });
+};
 
-const openedSavings = ref([])
+const openedSavings = ref([]);
 const check = function (id) {
-  return openedSavings.value.some(saving => saving.saving === id)
-}
+  return openedSavings.value.some((saving) => saving.saving === id);
+};
 
 onMounted(() => {
   axios({
-    method: 'get',
-    url: `${store.API_URL}/products/saving/${route.params.id}/`
+    method: "get",
+    url: `${store.API_URL}/products/saving/${route.params.id}/`,
   })
     .then((response) => {
-      saving.value = response.data.saving
-      options.value = response.data.options
+      saving.value = response.data.saving;
+      options.value = response.data.options;
     })
     .catch((error) => {
-      console.log(error)
-    })
-})
+      console.log(error);
+    });
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

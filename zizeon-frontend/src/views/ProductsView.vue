@@ -12,24 +12,24 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import DepositList from '@/components/DepositList.vue'
-import SavingList from '@/components/SavingList.vue'
+import { ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import DepositList from "@/components/DepositList.vue";
+import SavingList from "@/components/SavingList.vue";
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
-const currentTab = ref(route.query.tab || 'deposit')
+const currentTab = ref(route.query.tab || "deposit");
 
 const selectTab = (tab) => {
-  currentTab.value = tab
-  router.push({ query: { tab } })
-}
+  currentTab.value = tab;
+  router.push({ query: { tab } });
+};
 
 watch(route, (newRoute) => {
-  currentTab.value = newRoute.query.tab || 'deposit'
-})
+  currentTab.value = newRoute.query.tab || "deposit";
+});
 </script>
 
 <style scoped>
