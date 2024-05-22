@@ -1,54 +1,119 @@
 <template>
   <div class="content">
-    <h1>적금</h1>
-    <div>
-      <label for="bankFilter">은행 선택: </label>
-      <select id="bankFilter" v-model="selectedBank" @change="filterSavings">
-        <option value="">전체</option>
-        <option v-for="bank in uniqueBanks" :key="bank" :value="bank">
-          {{ bank }}
-        </option>
-      </select>
-      <button @click="resetFiltersAndSorting">초기화</button>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>상품명</th>
-          <th>회사명</th>
-          <th>적립유형명</th>
-          <th @click="sortSavings(6)">6개월</th>
-          <th @click="sortSavings(12)">12개월</th>
-          <th @click="sortSavings(24)">24개월</th>
-          <th @click="sortSavings(36)">36개월</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="saving in paginatedSavings" :key="saving.id">
-          <td>{{ saving.id }}</td>
-          <td>
-            <RouterLink
-              :to="{ name: 'SavingDetail', params: { id: saving.id } }"
-              >{{ saving.fin_prdt_nm }}</RouterLink
-            >
-          </td>
-          <td>{{ saving.kor_co_nm }}</td>
-          <td>자유적립식</td>
-          <td>{{ getInterestRate(saving, "자유적립식", 6) }}</td>
-          <td>{{ getInterestRate(saving, "자유적립식", 12) }}</td>
-          <td>{{ getInterestRate(saving, "자유적립식", 24) }}</td>
-          <td>{{ getInterestRate(saving, "자유적립식", 36) }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="pagination">
-      <button @click="prevPage" :disabled="currentPage === 1">이전</button>
-      <span>{{ currentPage }} / {{ totalPages }}</span>
-      <button @click="nextPage" :disabled="currentPage === totalPages">
-        다음
+    <h3 class="text-2xl font-bold sm:text-4xl mb-4 text-center mt-8">
+      적금 상품 조회
+    </h3>
+
+    <div class="flex justify-between mb-8 ml-5 mr-5">
+      <div class="max-w-sm">
+        <label for="bankFilter">찾으시려는 은행을 선택해주세요.</label>
+        <select
+          id="bankFilter"
+          v-model="selectedBank"
+          @change="filterSavings"
+          class="block px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        >
+          <option selected>전체</option>
+          <option v-for="bank in uniqueBanks" :key="bank" :value="bank">
+            {{ bank }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        @click="resetFiltersAndSorting"
+        class="mt-0 mr-0 rounded bg-green-600 px-2 py-1 text-xs text-white transition hover:bg-green-700 focus:outline-none"
+      >
+        필터링 초기화
       </button>
     </div>
+  </div>
+
+  <div class="rounded-lg border border-gray-200">
+    <div class="overflow-x-auto rounded-t-lg">
+      <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+        <thead class="ltr:text-left rtl:text-right">
+          <tr>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              번호
+            </th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              상품명
+            </th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              적립유형명
+            </th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              회사명
+            </th>
+            <th
+              @click="sortDeposits(12)"
+              class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
+            >
+              6개월
+            </th>
+            <th
+              @click="sortDeposits(12)"
+              class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
+            >
+              12개월
+            </th>
+            <th
+              @click="sortDeposits(24)"
+              class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
+            >
+              24개월
+            </th>
+            <th
+              @click="sortDeposits(36)"
+              class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
+            >
+              36개월
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-gray-200">
+          <tr v-for="saving in paginatedSavings" :key="saving.id">
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+              {{ saving.id }}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+              <RouterLink
+                :to="{ name: 'SavingDetail', params: { id: saving.id } }"
+                >{{ saving.fin_prdt_nm }}</RouterLink
+              >
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+              {{ saving.kor_co_nm }}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+              자유적립식
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+              {{ getInterestRate(deposit, 6) }}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+              {{ getInterestRate(deposit, 12) }}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+              {{ getInterestRate(deposit, 24) }}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+              {{ getInterestRate(deposit, 36) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="text-center mt-8">
+    <button @click="prevPage" :disabled="currentPage === 1">이전</button>
+    <span class="mr-2 ml-2">{{ currentPage }} / {{ totalPages }}</span>
+    <button @click="nextPage" :disabled="currentPage === totalPages">
+      다음
+    </button>
   </div>
 </template>
 
@@ -158,44 +223,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-table {
-  width: 80%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-th {
-  background-color: #f2f2f2;
-  cursor: pointer;
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-button {
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-</style>
+<style scoped></style>

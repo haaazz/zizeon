@@ -1,13 +1,18 @@
 <template>
-  <div class="quiz-item">
-    <h5 class="quiz-question">{{ quiz.question }}</h5>
-    <label class="answer-label" for="answer">정답 입력</label>
-    <input
-      type="text"
-      class="answer-input"
-      v-model="userAnswer"
-      @keyup.enter="submitAnswer(quiz)"
-    />
+  <div
+    class="ml-1 mr-1 max-w-screen-xl px-4 py-10 sm:px-6 lg:px-2 rounded-lg p-4 shadow-lg mt-8"
+  >
+    <h5 class="text-center text-lg font-medium">{{ quiz.question }}</h5>
+    <div>
+      <label for="answer"></label>
+      <input
+        type="text"
+        class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm mt-8"
+        v-model="userAnswer"
+        @keyup.enter="submitAnswer(quiz)"
+        placeholder="정답을 입력해주세요"
+      />
+    </div>
   </div>
 </template>
 
@@ -25,6 +30,7 @@ const userAnswer = ref("");
 const submitAnswer = (quiz) => {
   const isCorrect =
     quiz.answer.toLowerCase() === userAnswer.value.trim().toLowerCase();
+  console.log(answer.value);
 
   router.push({
     name: "answer",
@@ -34,30 +40,4 @@ const submitAnswer = (quiz) => {
 };
 </script>
 
-<style scoped>
-.quiz-item {
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin: 20px;
-  padding: 20px;
-}
-
-.quiz-question {
-  font-size: 18px;
-  margin: 0;
-}
-
-.answer-label {
-  display: block;
-  margin-top: 16px;
-}
-
-.answer-input {
-  width: calc(100% - 24px);
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-top: 8px;
-}
-</style>
+<style scoped></style>

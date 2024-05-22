@@ -1,33 +1,38 @@
 <template>
   <div>
-    <container>
-      <h1>내 주변 은행 찾기</h1>
-      <div>
-        <btn>
-          <select v-model="province" @change="updateCities">
-            <option value="">도/시</option>
-            <option v-for="info in infos" :key="info.id">
-              {{ info.prov }}
-            </option>
-          </select> </btn
-        >　
-        <btn>
-          <select v-model="city">
-            <option value="">시/군/구</option>
-            <option v-for="c in cities" :key="c">{{ c }}</option>
-          </select> </btn
-        >　
-        <btn>
-          <select v-model="bank">
-            <option value="">은행명</option>
-            <option v-for="b in banks" :key="b">{{ b }}</option>
-          </select>
-        </btn>
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 mt-12">
+      <div class="mx-auto max-w-lg">
+        <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">
+          내 주변 은행 찾기
+        </h1>
+        <div>
+          <btn>
+            <select v-model="province" @change="updateCities">
+              <option value="">도/시</option>
+              <option v-for="info in infos" :key="info.id">
+                {{ info.prov }}
+              </option>
+            </select> </btn
+          >　
+          <btn>
+            <select v-model="city">
+              <option value="">시/군/구</option>
+              <option v-for="c in cities" :key="c">{{ c }}</option>
+            </select> </btn
+          >　
+          <btn>
+            <select v-model="bank">
+              <option value="">은행명</option>
+              <option v-for="b in banks" :key="b">{{ b }}</option>
+            </select>
+          </btn>
+
+          <div>
+            <MapComponent :province="province" :city="city" :bank="bank" />
+          </div>
+        </div>
       </div>
-      <div>
-        <MapComponent :province="province" :city="city" :bank="bank" />
-      </div>
-    </container>
+    </div>
   </div>
 </template>
 
@@ -55,12 +60,4 @@ watch(province, () => {
   updateCities();
 });
 </script>
-
-<style scoped>
-* {
-  font-family: YeongjuSeonbi;
-}
-container {
-  text-align: center;
-}
-</style>
+<style scoped></style>

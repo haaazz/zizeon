@@ -1,13 +1,22 @@
 <template>
-  <div class="container">
-    <div class="selectbtn">
-      <button @click="selectTab('deposit')">예금</button>
-      <button @click="selectTab('saving')">적금</button>
-    </div>
-    <div class="content">
-      <DepositList v-if="currentTab === 'deposit'" />
-      <SavingList v-if="currentTab === 'saving'" />
-    </div>
+  <div class="text-center">
+    <button
+      class="mt-8 mr-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+      @click="selectTab('deposit')"
+    >
+      예금 상품 조회
+    </button>
+    <button
+      class="mt-8 mr-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+      @click="selectTab('saving')"
+    >
+      적금 상품 조회
+    </button>
+  </div>
+
+  <div>
+    <DepositList v-if="currentTab === 'deposit'" />
+    <SavingList v-if="currentTab === 'saving'" />
   </div>
 </template>
 
@@ -32,34 +41,4 @@ watch(route, (newRoute) => {
 });
 </script>
 
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.selectbtn {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-button:focus {
-  outline: none;
-}
-
-.content {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-* {
-  font-family: YeongjuSeonbi;
-}
-</style>
+<style scoped></style>

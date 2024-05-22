@@ -1,9 +1,20 @@
 <template>
   <div>
-    <h1>퀴즈 페이지</h1>
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 mt-20">
+      <div class="mx-auto max-w-lg">
+        <h2 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">
+          금융 퀴즈를 풀어봐요 👀
+        </h2>
 
-    <div v-if="randomQuiz">
-      <QuizDetail :quiz="randomQuiz" />
+        <p class="mx-auto mt-4 max-w-md text-center text-gray-500">
+          다양한 금융 퀴즈들이 있으며 <br />
+          퀴즈는 랜덤으로 출제됩니다.
+        </p>
+
+        <div v-if="randomQuiz">
+          <QuizDetail :quiz="randomQuiz" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -70,7 +81,7 @@ const quizList = ref([
   {
     pk: 12,
     question:
-      "금융 제품을 판매하거나 구매할 때 지불하는 수수료를 무엇이라고 할까요?",
+      "금융 제품을 판매하거나 구매할 때 지불하는 것을무엇이라고 할까요?",
     answer: "수수료",
   },
   {
