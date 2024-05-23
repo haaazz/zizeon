@@ -5,32 +5,40 @@
         내 주변 은행 찾기💸
       </h1>
 
+      <div class="text-center">
+        <select
+          v-model="province"
+          @change="updateCities"
+          class="mt-8 w-1/5 rounded-lg border-gray-500 text-gray-700 sm:text-sm p-2 border border-gray-300 mr-3"
+        >
+          <option value="">도/시</option>
+          <option v-for="info in infos" :key="info.id">
+            {{ info.prov }}
+          </option>
+        </select>
 
-        <div class="text-center">
-            <select v-model="province" @change="updateCities" class="mt-8 w-1/5 rounded-lg border-gray-500 text-gray-700 sm:text-sm p-2 border border-gray-300 mr-3">
-              <option value="">도/시</option>
-              <option v-for="info in infos" :key="info.id">
-                {{ info.prov }}
-              </option>
-            </select>
+        <select
+          v-model="city"
+          class="mt-8 w-1/5 rounded-lg border-gray-500 text-gray-700 sm:text-sm p-2 border border-gray-300 mr-3"
+        >
+          <option value="">시/군/구</option>
+          <option v-for="c in cities" :key="c">{{ c }}</option>
+        </select>
 
-            <select v-model="city"  class="mt-8 w-1/5 rounded-lg border-gray-500 text-gray-700 sm:text-sm p-2 border border-gray-300 mr-3">
-              <option value="">시/군/구</option>
-              <option v-for="c in cities" :key="c">{{ c }}</option>
-            </select> 
+        <select
+          v-model="bank"
+          class="mt-8 w-1/5 rounded-lg border-gray-500 text-gray-700 sm:text-sm p-2 border border-gray-300"
+        >
+          <option value="">은행명</option>
+          <option v-for="b in banks" :key="b">{{ b }}</option>
+        </select>
 
-            <select v-model="bank"  class="mt-8 w-1/5 rounded-lg border-gray-500 text-gray-700 sm:text-sm p-2 border border-gray-300">
-              <option value="">은행명</option>
-              <option v-for="b in banks" :key="b">{{ b }}</option>
-            </select>
-          
-
-          <div>
-            <MapComponent :province="province" :city="city" :bank="bank" />
-          </div>
+        <div>
+          <MapComponent :province="province" :city="city" :bank="bank" />
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">

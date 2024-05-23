@@ -133,20 +133,21 @@ const router = useRouter();
 
 const checkLogin = () => {
   if (!store.isLogin) {
-    alert("로그인이 필요합니당");
-    router.push("/");
+    alert("로그인이 필요한 기능입니다.");
+    router.push("/login");
   } else {
-    router.push("mypage");
+    router.push("/mypage");
   }
 };
 </script>
 
 <style scoped>
 .rouview {
-  height: 100vh; /* Viewport height */
-  width: 100vw; /* Viewport width */
+  min-height: 100vh;
+  min-width: 100vw;
   background-image: url("@/assets/bgc.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 </style>

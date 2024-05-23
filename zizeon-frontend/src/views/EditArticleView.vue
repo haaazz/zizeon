@@ -1,16 +1,41 @@
 <template>
-  <div>
-    <h1>게시글 수정</h1>
-    <form @submit.prevent="updateArticle">
+  <div class="w-5/6 mx-auto">
+    <h3 class="text-2xl font-bold sm:text-4xl mb-4 text-center mt-8">
+      게시글 수정
+    </h3>
+    <form @submit.prevent="updateArticle" class="w-5/6 mx-auto">
       <div>
-        <label for="title">제목</label>
-        <input id="title" v-model="title" type="text" />
+        <label
+          for="title"
+          class="block mb-2 text-m font-medium text-gray-900 dark:text-white"
+          >제목</label
+        >
+        <input
+          type="text"
+          id="title"
+          v-model.trim="title"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-s focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
       </div>
-      <div>
-        <label for="content">내용</label>
-        <textarea id="content" v-model="content"></textarea>
+      <div class="mb-5">
+        <label
+          for="content"
+          class="block mb-2 mt-5 text-m font-medium text-gray-900 dark:text-white"
+          >내용</label
+        >
+        <textarea
+          type="text"
+          id="content"
+          v-model.trim="content"
+          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-60"
+          placeholder="글을 입력해주세요"
+        ></textarea>
+
+        <input
+          type="submit"
+          class="mt-5 mr-0 p-2 pl-4 pr-4 rounded bg-green-600 px-2 py-1 text-s text-white transition hover:bg-green-700 focus:outline-none"
+        />
       </div>
-      <button type="submit">수정하기</button>
     </form>
   </div>
 </template>

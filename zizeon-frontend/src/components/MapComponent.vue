@@ -1,6 +1,11 @@
 <template>
   <div class="map-component-under">
-    <button @click="searchOnMap" class="mt-5 text-center border border-gray-600 p-2 rounded-lg">검색하기</button>
+    <button
+      @click="searchOnMap"
+      class="mt-5 text-center border border-gray-600 p-2 rounded-lg"
+    >
+      검색하기
+    </button>
     <div id="mapContainer"></div>
   </div>
 </template>

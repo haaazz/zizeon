@@ -6,20 +6,20 @@
       >
         <img
           alt=""
-          src="@/assets/bgc.png"
-          class="absolute inset-0 h-full w-full object-cover opacity-80"
+          src="@/assets/howl.jpg"
+          class="absolute inset-0 h-full w-full object-cover opacity-60"
         />
 
         <div class="hidden lg:relative lg:block lg:p-12">
-          <a><img src="@/assets/zz.png" alt="" /> </a>
+          <a><img src="@/assets/zz.png" alt="" class="w-20" /> </a>
 
           <h2
             class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl"
           >
-            회원가입 지전 따봉
+            회원가입 페이지입니다.
           </h2>
 
-          <p class="mt-4 leading-relaxed text-white/90">힘들다</p>
+          <p class="mt-4 leading-relaxed text-white/90">힘들다 ...</p>
         </div>
       </section>
 
@@ -56,7 +56,7 @@
                 type="text"
                 id="nickname"
                 v-model.trim="nickname"
-                class="mt-1 w-full  p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -72,7 +72,7 @@
                 type="password"
                 id="password1"
                 v-model.trim="password1"
-                class="mt-1 w-full  p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -88,7 +88,7 @@
                 type="password"
                 id="password2"
                 v-model.trim="password2"
-                class="mt-1 w-full  p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -104,7 +104,7 @@
                 type="email"
                 id="email"
                 v-model.trim="email"
-                class="mt-1  p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -151,7 +151,7 @@
                 type="text"
                 id="age"
                 v-model.trim="age"
-                class="mt-1  p-2 vw-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 p-2 vw-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -167,7 +167,7 @@
                 type="text"
                 id="income"
                 v-model.trim="income"
-                class="mt-1  p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -289,5 +289,4 @@ const signUp = () => {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
