@@ -1,13 +1,21 @@
 <template>
-  <div v-if="article">
+
+  <div v-if="article" class="w-5/6 text-center">
+    <div>
+      <h3 class="text-lg font-bold sm:text-lg mb-4 mt-8">
+        {{ article.id }}번째 게시글
+    </h3>
+    <h3 class="text-lg font-bold sm:text-lg mb-4 ">
+      제목 : {{ article.title }}
+    </h3>
+    <h3 class="text-lg font-bold sm:text-lg mb-4">
+      내용 : {{ article.content }}
+    </h3>
+    </div>
+    <hr>
     <div v-if="article.user == userStore.loginUser.pk">
       <button @click="editArticle">게시글 수정</button>
       <button @click="deleteArticle">게시글 삭제</button>
-    </div>
-    <div>
-      <p># : {{ article.id }}</p>
-      <p>제목 : {{ article.title }}</p>
-      <p>내용 : {{ article.content }}</p>
     </div>
     <hr>
     <div>
@@ -37,6 +45,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
