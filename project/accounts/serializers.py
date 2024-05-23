@@ -49,6 +49,11 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         fields = ('pk', *extra_fields)
         read_only_fields = ('email',)
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('username',)
+
 class OpenDepositSerializer(serializers.ModelSerializer):
     class Meta:
         model = OpenDeposit

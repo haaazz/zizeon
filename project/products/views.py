@@ -90,13 +90,11 @@ def open_deposit(request, pk):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['DELETE'])
-def cancel_deposit(request, deposit_pk, open_pk):
-    deposit = OpenDeposit.objects.get(pk=open_pk)
-    if request.user != deposit.user:
-        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
-    else:
-        deposit.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+def cancel_deposit(request, deposit_pk):
+    deposit = Deposit.objects.get(pk=deposit_pk)
+    open_deposit = OpenDeposit.objects.filter(deposit=deposit, user=request.user)
+    open_deposit.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def deposit_recommend(request):
@@ -184,13 +182,11 @@ def open_saving(request, pk):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['DELETE'])
-def cancel_saving(request, saving_pk, open_pk):
-    saving = OpenSaving.objects.get(pk=open_pk)
-    if request.user != saving.user:
-        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
-    else:
-        saving.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+def cancel_saving(request, saving_pk):
+    saving = Saving.objects.get(pk=saving_pk)
+    open_saving = OpenSaving.objects.filter(saving=saving, user=request.user)
+    open_saving.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def saving_recommend(request):

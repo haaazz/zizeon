@@ -12,7 +12,7 @@ from products.serializers import DepositSerializer, SavingSerializer
 
 # Create your views here.
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def products(request):
     deposits = OpenDeposit.objects.filter(user=request.user)
     deposit_serializers = OpenDepositSerializer(deposits, many=True)
@@ -36,7 +36,7 @@ con = sqlite3.connect("db.sqlite3", check_same_thread=False)
 le = LabelEncoder()
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def recommend(request):
     user = pd.read_sql("SELECT * FROM accounts_user", con, index_col=None)
     user = user.drop(['password', 'last_login', 'is_superuser', 'is_staff', 'username', 'first_name', 'last_name', 'email', 'nickname', 'date_joined'], axis=1)
@@ -87,17 +87,13 @@ def recommend(request):
     return Response({'deposit': deposits_serializers.data, 'saving': savings_serializers.data})
     
 @api_view(['DELETE', 'PUT'])
-# @permission_classes(IsAuthenticated)
+@permission_classes([IsAuthenticated])
 def update(request):
     user = request.user
-    print('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
-    print(user)
-    print('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
     if request.method == 'DELETE':
         user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    
-    if request.method == 'PUT':
+        return Response(status=status.HTTP_204_NO_CONTENT) 
+    elif request.method == 'PUT':
         serialzer = UserSerialzer(user, data=request.data, partial=True)
         if serialzer.is_valid(raise_exception=True):
             serialzer.save()
