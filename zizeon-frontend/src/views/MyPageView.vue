@@ -20,7 +20,15 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
             >
               로그아웃
             </button>
+
+            <button
+class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+              @click="exit"
+            >
+              회원탈퇴
+            </button>
   </div>
+  
 </div>
 
     <h3>가입한 적금 목록</h3>
@@ -97,6 +105,34 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
   const recommendDeposits = ref([])
   const recommendSavings = ref([])
 
+
+  const exit = function () {
+    console.log(userstore.API_URL)
+  axios({
+    method: "delete",
+    url: `${userstore.API_URL}/accounts/update/`,
+    headers: {
+      Authorization: `Token ${userstore.loginUser.token}`,
+    },
+  })
+      userstore.loginUser = {
+        age: 0,
+    email:"",
+    first_name:"",
+    gender:"Female",
+    income:0,
+    job:"",
+    last_name:"",
+    nickname:"",
+    pk:0,
+    username:"",
+    token:"",
+    deposits: [],
+  savings:[]}
+      router.push({ name: "home" })
+
+};
+
   onMounted(() => {
     axios({
       method: 'get',
@@ -113,6 +149,9 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
       console.log(error)
     })
   })
+
+
+
 </script>
 
 <style scoped>

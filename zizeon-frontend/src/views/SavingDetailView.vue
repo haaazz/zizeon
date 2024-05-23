@@ -22,6 +22,10 @@
       <button @click.prevent="open">가입</button>
     </form>
 
+    <div>
+      <button @click.prevent="cancleSaving">해지</button>
+    </div>
+
     <div v-for="option in options" :key="option.id">
       <hr />
       <p>적립유형: {{ option.rsrv_type_nm }}</p>
@@ -56,7 +60,7 @@ const open = function () {
       balance: balance.value,
     },
     headers: {
-      Authorization: `Token ${userstore.loginUser.value.token}`,
+      Authorization: `Token ${userstore.loginUser.token}`,
     },
   })
     .then((response) => {
@@ -67,6 +71,27 @@ const open = function () {
       console.log(balance.value);
     });
 };
+
+const cancleSaving = function(){
+  axios({
+    method: "delete",
+    url: `${store.API_URL}/products/saving/${route.params.id}/delete/`,
+    data: {
+      balance: balance.value,
+    },
+    headers: {
+      Authorization: `Token ${userstore.loginUser.token}`,
+    },
+  })
+    .then((response) => {
+      userstore.getUserOpenedProducts()
+      router.push({ name: "mypage" });
+    })
+    .catch((error) => {
+      console.log(balance.value);
+    });
+}
+
 
 onMounted(() => {
   axios({

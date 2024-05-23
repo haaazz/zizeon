@@ -15,7 +15,9 @@ export const useUserStore = defineStore('usercounter', () => {
     nickname:"",
     pk:0,
     username:"",
-    token:""
+    token:"",
+    deposits: [],
+    savings:[]
   })
 
   const isLogin = computed(() => loginUser.value.token !== "")

@@ -16,11 +16,19 @@
       <p>만기후이자율: {{ deposit.mtrt_int }}</p>
     </div>
 
-    <form v-if="userstore.isLogin">
+
+    <form v-if="userstore.isLogin" >
+
       <label for="balance">예치금: </label>
       <input type="number" id="balance" v-model="balance" />
-      <button @click.prevent="open">가입</button>
+      <button @click="open">가입</button>
+
     </form>
+
+    <div>
+      <button @click="cancleDeposit">해지</button>
+    </div>
+  </div>
 
     <div v-for="option in options" :key="option.id">
       <hr />
@@ -28,7 +36,7 @@
       <p>저축금리: {{ option.intr_rate }}</p>
       <p>최고우대금리: {{ option.intr_rate2 }}</p>
     </div>
-  </div>
+
 </template>
 
 <script setup>
@@ -55,7 +63,7 @@ const open = function () {
       balance: balance.value,
     },
     headers: {
-      Authorization: `Token ${userstore.loginUser.value.token}`,
+      Authorization: `Token ${userstore.loginUser.token}`,
     },
   })
     .then((response) => {
@@ -66,6 +74,26 @@ const open = function () {
       console.log(balance.value);
     });
 };
+
+const cancleDeposit = function(){
+  axios({
+    method: "delete",
+    url: `${store.API_URL}/products/deposit/${route.params.id}/delete/`,
+    data: {
+      balance: balance.value,
+    },
+    headers: {
+      Authorization: `Token ${userstore.loginUser.token}`,
+    },
+  })
+    .then((response) => {
+      userstore.getUserOpenedProducts()
+      router.push({ name: "mypage" });
+    })
+    .catch((error) => {
+      console.log(balance.value);
+    });
+}
 
 onMounted(() => {
   axios({
