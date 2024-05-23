@@ -47,25 +47,25 @@
               회사명
             </th>
             <th
-              @click="sortDeposits(12)"
+              @click="sortSavings(6)"
               class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
             >
               6개월
             </th>
             <th
-              @click="sortDeposits(12)"
+              @click="sortSavings(12)"
               class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
             >
               12개월
             </th>
             <th
-              @click="sortDeposits(24)"
+              @click="sortSavings(24)"
               class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
             >
               24개월
             </th>
             <th
-              @click="sortDeposits(36)"
+              @click="sortSavings(36)"
               class="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
             >
               36개월
@@ -91,16 +91,16 @@
               자유적립식
             </td>
             <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-              {{ getInterestRate(deposit, 6) }}
+              {{ getInterestRate(saving, "자유적립식", 6) }}
             </td>
             <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-              {{ getInterestRate(deposit, 12) }}
+              {{ getInterestRate(saving, "자유적립식", 12) }}
             </td>
             <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-              {{ getInterestRate(deposit, 24) }}
+              {{ getInterestRate(saving, "자유적립식", 24) }}
             </td>
             <td class="whitespace-nowrap px-4 py-2 text-gray-700">
-              {{ getInterestRate(deposit, 36) }}
+              {{ getInterestRate(saving, "자유적립식", 36) }}
             </td>
           </tr>
         </tbody>

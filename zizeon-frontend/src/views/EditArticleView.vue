@@ -42,7 +42,7 @@ const updateArticle = () => {
     method: "put",
     url: `${articleStore.API_URL}/articles/${articleId.value}/`,
     headers: {
-      Authorization: `Token ${userStore.token}`,
+      Authorization: `Token ${userStore.loginUser.token}`,
     },
     data: {
       title: title.value,

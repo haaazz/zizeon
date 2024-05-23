@@ -59,21 +59,6 @@
                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
-            <div class="col-span-6 sm:col-span-3">
-              <label
-                for="email"
-                class="block text-sm font-medium text-gray-700"
-              >
-                이메일
-              </label>
-
-              <input
-                type="email"
-                id="email"
-                v-model.trim="email"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-              />
-            </div>
 
             <div class="col-span-6 sm:col-span-3">
               <label
@@ -103,6 +88,22 @@
                 type="password"
                 id="password2"
                 v-model.trim="password2"
+                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              />
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700"
+              >
+                이메일
+              </label>
+
+              <input
+                type="email"
+                id="email"
+                v-model.trim="email"
                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>

@@ -35,7 +35,7 @@ const createArticle = function () {
       content: content.value,
     },
     headers: {
-      Authorization: `Token ${userstore.token}`,
+      Authorization: `Token ${userstore.loginUser.value.token}`,
     },
   })
     .then(() => {

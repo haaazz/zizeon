@@ -5,7 +5,7 @@
 
     <h3>가입한 적금 목록</h3>
     <ul>
-      <li v-for="saving in savings" :key="saving.id">
+      <li v-for="saving in userstore.loginUser.savings" :key="saving.id">
         <p v-for="s in savingsInfo(saving.saving)">
           상품명: <RouterLink :to="{ name: 'SavingDetail', params: { id: s.id } }">{{ s.fin_prdt_nm }}</RouterLink>
         </p>
@@ -15,7 +15,7 @@
 
     <h3>가입한 예금 목록</h3>
     <ul>
-      <li v-for="deposit in deposits" :key="deposit.id">
+      <li v-for="deposit in userstore.loginUser.deposits" :key="deposit.id">
         <p v-for="s in depositsInfo(deposit.deposit)">
           상품명: <RouterLink :to="{ name: 'DepositDetail', params: { id: s.id } }">{{ s.fin_prdt_nm }}</RouterLink>
         </p>
@@ -46,7 +46,6 @@
 </template>
 
 <script setup>
-  import axios from 'axios'
   import { useSavingStore } from '@/stores/saving'
   import { useDepositStore } from '@/stores/deposit'
   import { useUserStore } from '@/stores/user'
@@ -57,9 +56,6 @@
   const userstore = useUserStore()
   const destore = useDepositStore()
   const router = useRouter()
-
-  const savings = ref([])
-  const deposits = ref([])
 
   const savingsInfo = function (pk) {
     return store.savings.filter((saving) => saving.id === pk)
@@ -74,20 +70,7 @@
   }
 
   onMounted(() => {
-    axios({
-      method: 'get',
-      url: `${store.API_URL}/accounts/products/`,
-      headers: {
-        Authorization: `Token ${userstore.token}`
-      }
-    })
-    .then((response) => {
-      savings.value = response.data.open_savings
-      deposits.value = response.data.open_deposits
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+
 })
 
 </script>
