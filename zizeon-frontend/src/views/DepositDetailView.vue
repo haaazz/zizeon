@@ -44,15 +44,15 @@ const open = function () {
       balance: balance.value,
     },
     headers: {
-      Authorization: `Token ${userstore.token}`,
+      Authorization: `Token ${userstore.loginUser.value.token}`,
     },
   })
     .then((response) => {
+      userstore.getUserOpenedProducts()
       router.push({ name: "mypage" });
     })
     .catch((error) => {
       console.log(balance.value);
-      console.log(userstore.token);
     });
 };
 

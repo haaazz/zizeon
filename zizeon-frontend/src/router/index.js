@@ -62,7 +62,7 @@ const router = createRouter({
       component: RecommendView,
     },
     {
-      path: "/answer",
+      path: "/answer/:pk/:answer",
       name: "answer",
       component: QuizAnswerView,
     },

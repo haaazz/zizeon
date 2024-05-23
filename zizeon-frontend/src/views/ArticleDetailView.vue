@@ -1,7 +1,7 @@
 <template>
   <div v-if="article">
     <h1>무리무리</h1>
-    <div v-if="article.user == currentUserPK">
+    <div v-if="article.user == userStore.loginUser.pk">
       <button @click="editArticle">게시글 수정</button>
       <button @click="deleteArticle">게시글 삭제</button>
     </div>
@@ -25,7 +25,7 @@ const route = useRoute();
 const router = useRouter();
 const article = ref(null);
 const userStore = useUserStore();
-const currentUserPK = ref(0);
+
 
 const deleteArticle = () => {
   if (article.value && confirm("게시글 진심 삭 제?")) {
@@ -33,7 +33,7 @@ const deleteArticle = () => {
       method: "delete",
       url: `${store.API_URL}/articles/${article.value.id}/`,
       headers: {
-        Authorization: `Token ${userStore.token}`,
+        Authorization: `Token ${userStore.loginUser.token}`,
       },
     })
       .then(() => {
@@ -68,20 +68,6 @@ onMounted(() => {
     })
     .catch((err) => {
       article.value = null;
-    });
-
-  axios({
-    method: "get",
-    url: `${store.API_URL}/accounts/user/`,
-    headers: {
-      Authorization: `Token ${userStore.token}`,
-    },
-  })
-    .then((res) => {
-      currentUserPK.value = res.data.pk;
-    })
-    .catch((err) => {
-      console.log(err);
     });
 });
 </script>

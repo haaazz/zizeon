@@ -21,6 +21,7 @@
       >
         나의 제출 답안: {{ userAnswer }}
         <br />
+        <p>정답: {{ answer }}</p>
       </p>
     </div>
     <button class="back-button" @click="goBack">뒤로가기</button>
@@ -31,12 +32,15 @@
 import { useRoute, useRouter } from "vue-router";
 import correctImage from "@/assets/nopyunsik.png";
 import incorrectImage from "@/assets/pyunsik.png";
+import { computed } from 'vue'
 
 const route = useRoute();
 const router = useRouter();
-const answer = route.params.answer;
-const userAnswer = route.query.userAnswer;
-const isCorrect = route.query.isCorrect === "true";
+
+const { pk, answer } = route.params
+const userAnswer = route.query.userAnswer
+
+const isCorrect = computed(() => answer === userAnswer)
 
 const goBack = () => {
   router.push("/quiz");
