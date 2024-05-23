@@ -1,13 +1,14 @@
 <template>
-  <div class="text-center">
+
+  <div class="text-center w-3/4 flex justify-center mx-auto">
     <button
-      class="mt-8 mr-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+      class="mt-8 mr-2 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
       @click="selectTab('deposit')"
     >
       예금 상품 조회
     </button>
     <button
-      class="mt-8 mr-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+      class="mt-8 ml-2 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
       @click="selectTab('saving')"
     >
       적금 상품 조회

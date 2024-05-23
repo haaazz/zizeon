@@ -40,7 +40,7 @@
                 type="text"
                 id="username"
                 v-model.trim="username"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -56,7 +56,7 @@
                 type="text"
                 id="nickname"
                 v-model.trim="nickname"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full  p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -72,7 +72,7 @@
                 type="password"
                 id="password1"
                 v-model.trim="password1"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full  p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -88,7 +88,7 @@
                 type="password"
                 id="password2"
                 v-model.trim="password2"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1 w-full  p-2 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -104,11 +104,11 @@
                 type="email"
                 id="email"
                 v-model.trim="email"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1  p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
-            <div class="flex">
+            <div class="col-span-6 sm:col-span-3 flex">
               <label for="성별"></label>
               <div class="flex items-center me-4">
                 <input
@@ -151,7 +151,7 @@
                 type="text"
                 id="age"
                 v-model.trim="age"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1  p-2 vw-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -167,7 +167,7 @@
                 type="text"
                 id="income"
                 v-model.trim="income"
-                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                class="mt-1  p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
               />
             </div>
 
@@ -290,5 +290,4 @@ const signUp = () => {
 </script>
 
 <style scoped>
-/* 스타일 추가 */
 </style>
