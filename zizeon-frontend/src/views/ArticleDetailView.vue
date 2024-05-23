@@ -15,7 +15,7 @@
     <hr>
     <div v-if="article.user == userStore.loginUser.pk">
       <button @click="editArticle">게시글 수정</button>
-      <button @click="deleteArticle">게시글 삭제</button>
+      <button @click.prevent="deleteArticle">게시글 삭제</button>
     </div>
     <hr>
     <div>
@@ -31,7 +31,7 @@
           {{ comment.content }}
           <form v-if="comment.user === userStore.loginUser.pk">
             | <button @click="startEditComment(comment)">수정</button> | 
-            <button @click="deleteComment(comment.id)">삭제</button> |
+            <button @click.prevent="deleteComment(comment.id)">삭제</button> |
           </form>
         </span>
         <span v-else>

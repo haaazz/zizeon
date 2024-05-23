@@ -45,6 +45,68 @@
         />
       </div>
 
+      <div class="col-span-6 sm:col-span-3">
+              <label
+                for="username"
+                class="block text-sm font-medium text-gray-700"
+              >
+                아이디
+              </label>
+
+              <input
+                type="text"
+                id="username"
+                v-model="editedProfile.username"
+                class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              />
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700"
+              >
+                이메일
+              </label>
+
+              <input
+                type="email"
+                id="email"
+                v-model="editedProfile.email"
+                class="mt-1  p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              />
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <label for="age" class="block text-sm font-medium text-gray-700">
+                나이
+              </label>
+
+              <input
+                type="text"
+                id="age"
+                v-model="editedProfile.age"
+                class="mt-1  p-2 vw-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              />
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <label
+                for="income"
+                class="block text-sm font-medium text-gray-700"
+              >
+                연봉(천원단위)
+              </label>
+
+              <input
+                type="text"
+                id="income"
+                v-model="editedProfile.income"
+                class="mt-1  p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+              />
+            </div>
+
+
       <button type="submit">완료</button>
     </form>
   </div>

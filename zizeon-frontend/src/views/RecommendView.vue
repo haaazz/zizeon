@@ -1,33 +1,57 @@
 <template>
   <div>
-    <h1>추천 상품 조회</h1>
+    <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl mb-6 mt-12">
+      ✨상품 추천✨
+      </h1>
+      <p class="text-center mb-8"> 각 상품명을 클릭하면 상세 정보 조회 페이지로 이동합니다.</p>
 
-    <h3>추천 예금 목록</h3>
-    <ul>
-      <li v-for="deposit in recommendDeposits" :key="deposit.id">
-        <p>
-          상품명:
-          <RouterLink :to="{ name: 'DepositDetail', params: { id: deposit.id } }">
+<div class="w-5/6 text-center flex space-x-6 mx-auto justify-around">
+  <div class="border border-gray-400 p-2 rounded-lg">
+    <h3 class="text-center text-xl font-bold text-green-600 sm:text-xl mb-6 mt-4">추천 예금 목록</h3>
+        <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+          <thead class="ltr:text-left rtl:text-right">
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">회사명</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">상품명</th>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr v-for="deposit in recommendDeposits" :key="deposit.id">
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center">
+              {{ deposit.kor_co_nm }}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center">
+              <RouterLink :to="{ name: 'DepositDetail', params: { id: deposit.id } }">
             {{ deposit.fin_prdt_nm }}
           </RouterLink>
-        </p>
-        <p>회사명: {{ deposit.kor_co_nm }}</p>
-      </li>
-    </ul>
-    
-    <h3>추천 적금 목록</h3>
-    <ul>
-      <li v-for="saving in recommendSavings" :key="saving.id">
-        <p>
-          상품명:
-          <RouterLink :to="{ name: 'SavingDetail', params: { id: saving.id } }">
+            </td>
+          </tr>
+          </tbody>
+        </table>
+  </div>
+
+  <div class="border border-gray-400 p-2 rounded-lg">
+    <h3 class="text-center text-xl font-bold text-green-600 sm:text-xl mb-6 mt-4">추천 적금 목록</h3>
+        <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+          <thead class="ltr:text-left rtl:text-right">
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">회사명</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">상품명</th>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr v-for="saving in recommendSavings" :key="saving.id">
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center">
+              {{ saving.kor_co_nm }}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center">
+              <RouterLink :to="{ name: 'SavingDetail', params: { id: saving.id } }">
             {{ saving.fin_prdt_nm }}
           </RouterLink>
-        </p>
-        <p>회사명: {{ saving.kor_co_nm }}</p>
-      </li>
-    </ul>
+            </td>
+          </tr>
+          </tbody>
+        </table>
   </div>
+
+  </div>
+</div>
 </template>
 
 <script setup>
