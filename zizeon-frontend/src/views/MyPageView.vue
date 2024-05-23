@@ -1,7 +1,18 @@
 <template>
   <div>
-    <h1>마이페이지</h1>
-    <button @click="ProfileEdit">회원 정보 수정</button>
+    <div  class="ml-1 mr-1 max-w-screen-xl px-4 py-10 sm:px-6 lg:px-2 rounded-lg p-4 shadow-lg mt-8">
+    <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">마이페이지</h1>
+    <div class="flex gap-x-8 justify-center">
+    <button @click="ProfileEdit" class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+    >정보수정</button>
+<button
+class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+              @click="logout"
+            >
+              로그아웃
+            </button>
+  </div>
+</div>
 
     <h3>가입한 적금 목록</h3>
     <ul>

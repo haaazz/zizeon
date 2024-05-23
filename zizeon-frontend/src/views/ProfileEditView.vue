@@ -58,20 +58,6 @@ import router from "@/router";
 
 const editedProfile = ref({});
 const store = useUserStore();
-// axios({
-//   url: `${store.API_URL}/accounts/user`,
-//   method: "get",
-//   headers: {
-//     Authorization: `Token ${store.token}`,
-//   },
-// })
-//   .then((res) => {
-//     editedProfile.value = res.data;
-//     console.log(user.value);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
 
 const updateProfile = () => {
   console.log(editedProfile.value.name);
