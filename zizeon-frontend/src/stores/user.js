@@ -57,9 +57,6 @@ export const useUserStore = defineStore('usercounter', () => {
             console.log(res.data.key)
             console.log(err2)
           })
-
-
-
       })
       .catch(err => console.log(err))
   }
@@ -106,7 +103,6 @@ export const useUserStore = defineStore('usercounter', () => {
     }
   }
 
-
   const getUserOpenedProducts = function(){
     axios({
       method: 'get',
@@ -125,7 +121,6 @@ export const useUserStore = defineStore('usercounter', () => {
     .catch((error) => {
       console.log(error)
     })
-
   }
 
   return { API_URL, signUp, logIn, isLogin, logout, loginUser, getUserOpenedProducts }
