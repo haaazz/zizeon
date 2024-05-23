@@ -1,6 +1,6 @@
 <template>
   <div class="map-component-under">
-    <button @click="searchOnMap">검색하기</button>
+    <button @click="searchOnMap" class="mt-5 text-center border border-gray-600 p-2 rounded-lg">검색하기</button>
     <div id="mapContainer"></div>
   </div>
 </template>
@@ -125,16 +125,9 @@ const removeAllMarkers = function () {
 </script>
 
 <style scoped>
-button {
-  text-align: center;
-  margin: 15px;
-}
 #mapContainer {
   width: 80%;
   height: 550px;
   margin: auto;
-}
-* {
-  font-family: YeongjuSeonbi;
 }
 </style>

@@ -1,14 +1,40 @@
 <template>
   <div v-if="article">
-    <h1>무리무리</h1>
     <div v-if="article.user == userStore.loginUser.pk">
       <button @click="editArticle">게시글 수정</button>
       <button @click="deleteArticle">게시글 삭제</button>
     </div>
     <div>
-      <p>{{ article.id }}</p>
-      <p>{{ article.title }}</p>
-      <p>{{ article.content }}</p>
+      <p># : {{ article.id }}</p>
+      <p>제목 : {{ article.title }}</p>
+      <p>내용 : {{ article.content }}</p>
+    </div>
+    <hr>
+    <div>
+      <form @submit="createComment">
+        <input type="text" v-model="commentContent">
+        <input type="submit" value="제출">
+      </form>
+    </div>
+    <hr>
+    <div>
+      <div v-for="comment in comments" :key="comment.id">
+        <span v-if="!comment.isEditing">
+          {{ comment.content }}
+          <form v-if="comment.user === userStore.loginUser.pk">
+            | <button @click="startEditComment(comment)">수정</button> | 
+            <button @click="deleteComment(comment.id)">삭제</button> |
+          </form>
+        </span>
+        <span v-else>
+          <form @submit.prevent="editComment(comment)">
+            <input type="text" v-model="comment.editContent">
+            <input type="submit" value="수정 완료">
+            <button @click="cancelEditComment(comment)">취소</button>
+          </form>
+        </span>
+        <br>
+      </div>
     </div>
   </div>
 </template>
@@ -25,7 +51,8 @@ const route = useRoute();
 const router = useRouter();
 const article = ref(null);
 const userStore = useUserStore();
-
+const comments = ref([]);
+const commentContent = ref('');
 
 const deleteArticle = () => {
   if (article.value && confirm("게시글 진심 삭 제?")) {
@@ -58,6 +85,69 @@ const editArticle = () => {
   });
 };
 
+const createComment = () => {
+  console.log(commentContent.value);
+  axios({
+    method: 'post',
+    url: `${store.API_URL}/articles/${route.params.id}/comments/`,
+    headers: {
+      Authorization: `Token ${userStore.loginUser.token}`
+    },
+    data: {
+      content: commentContent.value
+    }
+  }).then((res) => {
+    console.log(res);
+    comments.value.push(res.data);
+    commentContent.value = '';
+  }).catch((err) => {
+    console.log(err);
+  });
+};
+
+const startEditComment = (comment) => {
+  comment.isEditing = true;
+  comment.editContent = comment.content;
+};
+
+const cancelEditComment = (comment) => {
+  comment.isEditing = false;
+  comment.editContent = '';
+};
+
+const editComment = (comment) => {
+  axios({
+    method: 'put',
+    url: `${store.API_URL}/articles/${route.params.id}/comments/${comment.id}/`,
+    headers: {
+      Authorization: `Token ${userStore.loginUser.token}`
+    },
+    data: {
+      content: comment.editContent
+    }
+  }).then((res) => {
+    comment.content = comment.editContent;
+    comment.isEditing = false;
+    comment.editContent = '';
+  }).catch((err) => {
+    console.log(err);
+  });
+};
+
+const deleteComment = (commentPk) => {
+  axios({
+    method: 'delete',
+    url: `${store.API_URL}/articles/${route.params.id}/comments/${commentPk}`,
+    headers: {
+      Authorization: `Token ${userStore.loginUser.token}`
+    }
+  }).then(() => {
+    comments.value = comments.value.filter(comment => comment.id !== commentPk);
+  }).catch((err) => {
+    console.log(err);
+  });
+};
+
 onMounted(() => {
   axios({
     method: "get",
@@ -68,6 +158,17 @@ onMounted(() => {
     })
     .catch((err) => {
       article.value = null;
+    });
+  axios({
+    method: "get",
+    url: `${store.API_URL}/articles/${route.params.id}/comments/`,
+  })
+    .then((res) => {
+      comments.value = res.data.map(comment => ({ ...comment, isEditing: false, editContent: '' }));
+      console.log(comments);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
 </script>

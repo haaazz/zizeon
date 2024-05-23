@@ -1,10 +1,9 @@
 <template>
   <div
-    class="ml-1 mr-1 max-w-screen-xl px-4 py-10 sm:px-6 lg:px-2 rounded-lg p-4 shadow-lg mt-8"
-  >
-    <h5 class="text-center text-lg font-medium">{{ quiz.question }}</h5>
+    class="mx-auto max-w-screen-xl sm:px-6 lg:px-2 rounded-lg shadow-lg mt-8 overflow-auto"></div>
+    <h5 class="text-center text-lg font-medium break-words">{{ quiz.question }}</h5>
     <div>
-      <label for="answer">정답 입력</label>
+      <label for="answer"></label>
       <input
         type="text"
         class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm mt-8"
@@ -13,7 +12,6 @@
         placeholder="정답을 입력해주세요"
       />
     </div>
-  </div>
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
 <template>
-  <div class="answer-view">
+  <div class="w-3/5 mx-auto pt-10 pb-5 sm:px-6 lg:px-2 rounded-lg shadow-lg mt-8 overflow-auto">
     <div class="title-section">
       <h2 class="answer-title">정답 확인</h2>
     </div>
@@ -24,7 +24,9 @@
         <p>정답: {{ answer }}</p>
       </p>
     </div>
+    <div class="text-center mt-5">
     <button class="back-button" @click="goBack">뒤로가기</button>
+  </div>
   </div>
 </template>
 
@@ -48,18 +50,6 @@ const goBack = () => {
 </script>
 
 <style scoped>
-.answer-view {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  border: 1px solid rgb(219, 219, 219);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-}
 
 .title-section {
   text-align: center;
@@ -82,11 +72,17 @@ const goBack = () => {
   margin-top: 15px;
 }
 
+.answer-image {
+  margin: auto;
+}
+
 .content-section {
   background: white;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid rgb(199, 199, 199);
+  text-align: center;
+  justify-content: center;
 }
 .result-message {
   font-size: 18px;

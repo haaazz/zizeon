@@ -4,7 +4,7 @@
       <h1
         class="text-center text-2xl font-bold text-green-600 sm:text-3xl mb-16"
       >
-        환율 정보💸
+        환율 계산💸
       </h1>
       <div>
         <select v-model="nation">
