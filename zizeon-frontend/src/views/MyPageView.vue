@@ -36,6 +36,7 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
 
     <hr>
     <h3>금리 비교 그래프</h3>
+    <MyChart />
     <hr>
 
     <h3>추천 예금 목록</h3>
@@ -57,12 +58,13 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
 </template>
 
 <script setup>
-  import axios from 'axios';
+  import axios from 'axios'
   import { useSavingStore } from '@/stores/saving'
   import { useDepositStore } from '@/stores/deposit'
   import { useUserStore } from '@/stores/user'
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
+  import MyChart from '@/components/RateChart.vue'
 
   const store = useSavingStore()
   const userstore = useUserStore()
@@ -100,7 +102,6 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
       console.log(error)
     })
   })
-
 </script>
 
 <style scoped>
