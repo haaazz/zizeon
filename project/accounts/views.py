@@ -15,10 +15,10 @@ from products.serializers import DepositSerializer, SavingSerializer
 # @permission_classes([IsAuthenticated])
 def products(request):
     deposits = OpenDeposit.objects.filter(user=request.user)
+    deposit_serializers = OpenDepositSerializer(deposits, many=True)
     savings = OpenSaving.objects.filter(user=request.user)
-    deposit_serialiers = OpenDepositSerializer(deposits, many=True)
-    saving_serialiers = OpenSavingSerializer(savings, many=True)
-    return Response({'open_deposits': deposit_serialiers.data, 'open_savings': saving_serialiers.data})
+    saving_serializers = OpenSavingSerializer(savings, many=True)
+    return Response({'deposits': deposit_serializers.data, 'savings': saving_serializers.data})
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
