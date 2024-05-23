@@ -21,10 +21,9 @@
         <tr v-for="article in paginatedArticles" :key="article.id">
           <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center">{{ article.id }}</td>
           <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center">
-            <RouterLink
-              :to="{ name: 'ArticleDetail', params: { id: article.id } }"
-              >{{ article.title }}</RouterLink
-            >
+            <RouterLink :to="{ name: 'ArticleDetail', params: { id: article.id } }">
+              {{ article.title }}
+            </RouterLink>
           </td>
         </tr>
       </tbody>
