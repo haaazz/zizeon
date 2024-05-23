@@ -11,9 +11,12 @@
     <h3 class="text-lg font-bold sm:text-lg mb-4">
       내용 : {{ article.content }}
     </h3>
+    <h3 class="text-lg font-bold sm:text-lg mb-4">
+      작성자 : {{ article.user.username }}
+    </h3>
     </div>
     <hr>
-    <div v-if="article.user == userStore.loginUser.pk">
+    <div v-if="article.user.id == userStore.loginUser.pk">
       <button @click="editArticle">게시글 수정</button>
       <button @click.prevent="deleteArticle">게시글 삭제</button>
     </div>
@@ -29,7 +32,8 @@
       <div v-for="comment in comments" :key="comment.id">
         <span v-if="!comment.isEditing">
           {{ comment.content }}
-          <form v-if="comment.user === userStore.loginUser.pk">
+          <p>작성자: {{ comment.user.username }}</p>
+          <form v-if="comment.user.id === userStore.loginUser.pk">
             | <button @click="startEditComment(comment)">수정</button> | 
             <button @click.prevent="deleteComment(comment.id)">삭제</button> |
           </form>
@@ -62,6 +66,8 @@ const article = ref(null);
 const userStore = useUserStore();
 const comments = ref([]);
 const commentContent = ref('');
+const writer = ref('')
+const commentWriter = ref({})
 
 const deleteArticle = () => {
   if (article.value && confirm("게시글 진심 삭 제?")) {
@@ -106,7 +112,6 @@ const createComment = () => {
       content: commentContent.value
     }
   }).then((res) => {
-    console.log(res);
     comments.value.push(res.data);
     commentContent.value = '';
   }).catch((err) => {
@@ -163,7 +168,7 @@ onMounted(() => {
     url: `${store.API_URL}/articles/${route.params.id}/`,
   })
     .then((res) => {
-      article.value = res.data;
+      article.value = res.data
     })
     .catch((err) => {
       article.value = null;
@@ -174,7 +179,6 @@ onMounted(() => {
   })
     .then((res) => {
       comments.value = res.data.map(comment => ({ ...comment, isEditing: false, editContent: '' }));
-      console.log(comments);
     })
     .catch((err) => {
       console.log(err);
