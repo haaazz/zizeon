@@ -46,6 +46,7 @@
 </template>
 
 <script setup>
+  import axios from 'axios';
   import { useSavingStore } from '@/stores/saving'
   import { useDepositStore } from '@/stores/deposit'
   import { useUserStore } from '@/stores/user'
@@ -69,9 +70,25 @@
     router.push('/profileEdit')
   }
 
-  onMounted(() => {
+  const recommendDeposits = ref([])
+  const recommendSavings = ref([])
 
-})
+  onMounted(() => {
+    axios({
+      method: 'get',
+      url: `${store.API_URL}/accounts/recommend/`,
+      headers: {
+        Authorization: `Token ${userstore.loginUser.token}`,
+      },
+    })
+    .then((response) => {
+      recommendDeposits.value = response.data.deposit
+      recommendSavings.value = response.data.saving
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  })
 
 </script>
 
