@@ -1,9 +1,19 @@
 <template>
   <div>
     <h1>디테일</h1>
+  </div>
+
+  <div>
     <div v-if="saving">
-      <h3>금융상품명: {{ saving.fin_prdt_nm }}</h3>
-      <h3>금융회사명: {{ saving.kor_co_nm }}</h3>
+      <p>공시제출월: {{ saving.dcls_month }}</p>
+      <p>금융상품명: {{ saving.fin_prdt_nm }}</p>
+      <p>금융회사명: {{ saving.kor_co_nm }}</p>
+      <p>가입대상: {{ saving.join_member }}</p>
+      <p>가입방법: {{ saving.join_way }}</p>
+      <p>가입제한: {{ saving.join_deny }}</p>
+      <p>기타설명: {{ saving.etc_note }}</p>
+      <p>우대조건: {{ saving.spcl_cnd }}</p>
+      <p>만기후이자율: {{ saving.mtrt_int }}</p>
     </div>
 
     <form v-if="userstore.isLogin">
@@ -54,14 +64,8 @@ const open = function () {
       router.push({ name: "mypage" });
     })
     .catch((error) => {
-
       console.log(balance.value);
     });
-};
-
-const openedSavings = ref([]);
-const check = function (id) {
-  return openedSavings.value.some((saving) => saving.saving === id);
 };
 
 onMounted(() => {
@@ -71,7 +75,7 @@ onMounted(() => {
   })
     .then((response) => {
       saving.value = response.data.saving;
-      options.value = response.data.options;
+      options.value = response.data.option;
     })
     .catch((error) => {
       console.log(error);

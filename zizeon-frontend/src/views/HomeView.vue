@@ -15,21 +15,14 @@
         </div>
 
         <div class="lg:py-24">
-          <h2 class="text-3xl font-bold sm:text-4xl mb-4">저희는말입니다</h2>
+          <h2 class="text-3xl font-bold sm:text-4xl mb-4">저희는 금융 온라인 플랫폼</h2>
           <h2 class="text-3xl font-bold sm:text-4xl mb-4">지전입니다</h2>
+          <h4 class="text-2xl font-bold sm:text-2xl mb-4">摯錢: 돈을 움켜쥐는</h4>
+          <h4 class="text-2xl font-bold sm:text-2xl mb-4">祉田: 복이 넘치는 밭</h4>
 
           <div class="bg-white">
             <p class="mt-6 text-gray-600">
-              이러쿵저러쿵하는서비스입니다 짱멋지져
-            </p>
-            <p class="mt-4 text-gray-600">
-              이러쿵저러쿵하는서비스입니다 짱멋지져
-            </p>
-            <p class="mt-4 text-gray-600">
-              이러쿵저러쿵하는서비스입니다 짱멋지져
-            </p>
-            <p class="mt-4 text-gray-600">
-              이러쿵저러쿵하는서비스입니다 짱멋지져
+              '지전'은 돈을 관리하고 더 나은 미래를 위해 저축하는데 도움을 주는 온라인 플랫폼입니다. 저축 정보, 환율 정보, 그리고 주변 은행 위치 정보를 쉽게 찾아볼 수 있으며, 예적금 추천 및 가입 기능을 제공하여 사용자들이 더 효율적으로 자산을 관리할 수 있도록 지원합니다. '지전'은 안정적인 재정 상태와 풍요로운 미래를 위한 파트너로서 여러분을 돕겠습니다.
             </p>
           </div>
 
@@ -49,7 +42,7 @@
             >
           </div>
           <div v-else>
-            <p class="mt-6 text-gray-600">어서 와, {{ store.loginUser.nickname }} !</p>
+            <p class="text-xl mt-6 text-gray-600">어서 와, {{ store.loginUser.nickname }} !</p>
             <button
               class="mt-8 mr-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
               @click="logout"

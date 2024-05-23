@@ -32,6 +32,8 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
         <p v-for="s in savingsInfo(saving.saving)">회사명: {{ s.kor_co_nm }}</p>
       </li>
     </ul>
+    <h5>금리 비교 그래프</h5>
+    <DepositChart />
 
     <h3>가입한 예금 목록</h3>
     <ul>
@@ -42,10 +44,9 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
         <p v-for="s in depositsInfo(deposit.deposit)">회사명: {{ s.kor_co_nm }}</p>
       </li>
     </ul>
+    <h5>금리 비교 그래프</h5>
+    <SavingChart />
 
-    <hr>
-    <h3>금리 비교 그래프</h3>
-    <MyChart />
     <hr>
 
     <h3>추천 예금 목록</h3>
@@ -73,7 +74,8 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
   import { useUserStore } from '@/stores/user'
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
-  import MyChart from '@/components/RateChart.vue'
+  import DepositChart from '@/components/DepositChart.vue'
+  import SavingChart from '@/components/SavingChart.vue'
 
   const store = useSavingStore()
   const userstore = useUserStore()
@@ -117,5 +119,9 @@ class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium tex
   h3 {
     font-size: 20pt;
     margin: 10px 0;
+  }
+  h5 {
+    font-size: 15pt;
+    margin: 5px 0;
   }
 </style>
