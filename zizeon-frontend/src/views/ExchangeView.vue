@@ -1,9 +1,7 @@
 <template>
   <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 mt-12">
     <div class="mx-auto max-w-lg">
-      <h1
-        class="text-center text-2xl font-bold text-green-600 sm:text-3xl mb-16"
-      >
+      <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl mb-16">
         환율 정보💸
       </h1>
       <div>
@@ -17,6 +15,27 @@
         <input type="number" v-model="KRW" />
         <button @click="convertToForeign">₩</button>
       </div>
+      <br>
+      <table>
+        <thead>
+          <tr>
+            <th>국가/통화명</th>
+            <th>전신환(송금) 받을 때</th>
+            <th>매매 기준율</th>
+            <th>전신환(송금) 보낼 때</th>
+            <th>장부가격</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="currency in store.currencies" :key="currency.id">
+            <td>{{ currency.cur_nm }}</td>
+            <td>{{ currency.deal_bas_r }}</td>
+            <td>{{ currency.ttb }}</td>
+            <td>{{ currency.tts }}</td>
+            <td>{{ currency.bkpr }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
