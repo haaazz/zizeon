@@ -25,6 +25,7 @@
 
     <hr>
     <h3>금리 비교 그래프</h3>
+    <MyChart />
     <hr>
 
     <h3>추천 예금 목록</h3>
@@ -46,12 +47,13 @@
 </template>
 
 <script setup>
-  import axios from 'axios';
+  import axios from 'axios'
   import { useSavingStore } from '@/stores/saving'
   import { useDepositStore } from '@/stores/deposit'
   import { useUserStore } from '@/stores/user'
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
+  import MyChart from '@/components/RateChart.vue'
 
   const store = useSavingStore()
   const userstore = useUserStore()
@@ -89,7 +91,6 @@
       console.log(error)
     })
   })
-
 </script>
 
 <style scoped>
