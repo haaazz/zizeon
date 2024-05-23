@@ -172,7 +172,7 @@ def saving_detail(request, pk):
     savingoptions = SavingOption.objects.filter(fin_prdt_cd=saving.fin_prdt_cd)
     serializer = SavingSerializer(saving)
     serializers = SavingOptionSerializer(savingoptions, many=True)
-    return Response({'saving': serializer.data, 'options': serializers.data})
+    return Response({'saving': serializer.data, 'option': serializers.data})
 
 @api_view(['POST'])
 def open_saving(request, pk):
