@@ -1,16 +1,18 @@
 <template>
-  <div class="content">
+  <div class="w-5/6 flex flex-col mx-auto">
     <h3 class="text-2xl font-bold sm:text-4xl mb-4 text-center mt-8">
       예금 상품 조회
     </h3>
 
-    <div class="max-w-sm">
-      <label for="bankFilter">찾으시려는 은행을 선택해주세요.</label>
+    <div>
+    <div class="flex justify-between mb-8 ml-20 mr-20">
+      <div class="max-w-sm">
+        <label for="bankFilter">찾으시려는 은행을 선택해주세요.</label>
       <select
         id="bankFilter"
         v-model="selectedBank"
         @change="filterDeposits"
-        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        class="block px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
       >
         <option selected>전체</option>
         <option v-for="bank in uniqueBanks" :key="bank" :value="bank">
@@ -18,15 +20,17 @@
         </option>
       </select>
     </div>
-    <button
+      <button
       @click="resetFiltersAndSorting"
-      class="mt-0 mr-0 rounded bg-green-600 px-5 py-2 text-sm text-white transition hover:bg-green-700 focus:outline-none"
+      class="mt-0 mr-0 rounded bg-green-600 px-2 py-1 text-xs text-white transition hover:bg-green-700 focus:outline-none"
     >
       필터링 초기화
     </button>
-  </div>
+  </div>    </div>
 
-  <div class="rounded-lg border border-gray-200">
+    
+
+  <div class="rounded-lg border w-5/6 border-gray-200 mx-auto">
     <div class="overflow-x-auto rounded-t-lg">
       <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
         <thead class="ltr:text-left rtl:text-right">
@@ -69,34 +73,35 @@
 
         <tbody class="divide-y divide-gray-200">
           <tr v-for="deposit in paginatedDeposits" :key="deposit.id">
-            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center">
               {{ deposit.id }}
             </td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700 text-center">
               <RouterLink
                 :to="{ name: 'DepositDetail', params: { id: deposit.id } }"
                 >{{ deposit.fin_prdt_nm }}</RouterLink
               >
             </td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700 text-center">
               {{ deposit.kor_co_nm }}
             </td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700 text-center">
               {{ getInterestRate(deposit, 6) }}
             </td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700 text-center">
               {{ getInterestRate(deposit, 12) }}
             </td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700 text-center">
               {{ getInterestRate(deposit, 24) }}
             </td>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700 text-center">
               {{ getInterestRate(deposit, 36) }}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
   </div>
 
   <div class="text-center mt-8">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 mt-20">
-      <div class="mx-auto max-w-lg">
+      <div class="mx-auto w-3/5">
         <h2 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">
           금융 퀴즈를 풀어봐요 👀
         </h2>
