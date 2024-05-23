@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>디테일</h1>
+  </div>
+
+  <div>
     <div v-if="saving">
       <h3>금융상품명: {{ saving.fin_prdt_nm }}</h3>
       <h3>금융회사명: {{ saving.kor_co_nm }}</h3>
@@ -54,14 +57,8 @@ const open = function () {
       router.push({ name: "mypage" });
     })
     .catch((error) => {
-
       console.log(balance.value);
     });
-};
-
-const openedSavings = ref([]);
-const check = function (id) {
-  return openedSavings.value.some((saving) => saving.saving === id);
 };
 
 onMounted(() => {
@@ -71,7 +68,7 @@ onMounted(() => {
   })
     .then((response) => {
       saving.value = response.data.saving;
-      options.value = response.data.options;
+      options.value = response.data.option;
     })
     .catch((error) => {
       console.log(error);

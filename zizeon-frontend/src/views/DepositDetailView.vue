@@ -3,20 +3,24 @@
     <h1>상품 상세 정보</h1>
   </div>
 
-  <div v-if="deposit">
-    <h3>금융상품명: {{ deposit.fin_prdt_nm }}</h3>
-    <h3>금융회사명: {{ deposit.kor_co_nm }}</h3>
-  </div>
+  <div>
+    <div v-if="deposit">
+      <h3>금융상품명: {{ deposit.fin_prdt_nm }}</h3>
+      <h3>금융회사명: {{ deposit.kor_co_nm }}</h3>
+    </div>
 
-  <form v-if="userstore.isLogin">
-    <label for="balance"> 예치금: </label>
-    <input type="number" id="balance" v-model="balance" />
-    <button @click.prevent="open">가입</button>
-  </form>
+    <form v-if="userstore.isLogin">
+      <label for="balance">예치금: </label>
+      <input type="number" id="balance" v-model="balance" />
+      <button @click.prevent="open">가입</button>
+    </form>
 
-  <div v-for="option in options" :key="option.id">
-    <hr />
-    <p>저축금리:{{ option.intr_rate }}</p>
+    <div v-for="option in options" :key="option.id">
+      <hr />
+      <p>저축기간: {{ option.save_trm }}</p>
+      <p>저축금리: {{ option.intr_rate }}</p>
+      <p>최고우대금리: {{ option.intr_rate2 }}</p>
+    </div>
   </div>
 </template>
 
@@ -56,11 +60,6 @@ const open = function () {
     });
 };
 
-const openedDeposits = ref([]);
-const check = function (id) {
-  return openedDeposits.value.some((deposit) => deposit.deposit === id);
-};
-
 onMounted(() => {
   axios({
     method: "get",
@@ -68,7 +67,7 @@ onMounted(() => {
   })
     .then((res) => {
       deposit.value = res.data.deposit;
-      options.value = res.data.options;
+      options.value = res.data.option;
     })
     .catch((err) => console.log(err));
 });
