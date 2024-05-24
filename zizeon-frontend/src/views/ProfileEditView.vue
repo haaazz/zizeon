@@ -1,12 +1,12 @@
 <template>
-  <div v-if="editedProfile">
+  <div v-if="store.loginUser">
     <h1>프로필 수정</h1>
     <form @submit.prevent="updateProfile">
       <label for="nickname">닉네임:</label>
-      <input id="nickname" v-model="editedProfile.nickname" type="text" />
+      <input id="nickname" v-model="store.loginUser.nickname" type="text" />
 
       <label for="job">직업</label>
-      <select id="job" v-model="editedProfile.job">
+      <select id="job" v-model="store.loginUser.job">
         <option value="Analyst">어널리스트</option>
         <option value="Teacher">센세</option>
         <option value="Lawyer">변호사</option>
@@ -33,7 +33,7 @@
           type="radio"
           id="Male"
           value="Male"
-          v-model="editedProfile.gender"
+          v-model="store.loginUser.gender"
         />
 
         <label for="Female">여성</label>
@@ -41,7 +41,7 @@
           type="radio"
           id="Female"
           value="Female"
-          v-model="editedProfile.gender"
+          v-model="store.loginUser.gender"
         />
       </div>
 
@@ -103,31 +103,46 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
 import router from "@/router";
 
-const editedProfile = ref({});
 const store = useUserStore();
+const editedProfile = ref({})
 
 const updateProfile = () => {
-  console.log(editedProfile.value.name);
   axios({
     method: "put",
     url: `${store.API_URL}/accounts/update/`,
     headers: {
-      Authorization: `Token ${store.token}`,
+      Authorization: `Token ${store.loginUser.token}`,
     },
-    data: editedProfile.value,
+    data: store.loginUser.value,
   })
     .then((response) => {
       console.log("성공!");
       router.push("/mypage");
     })
     .catch((error) => {
+      console.log(store.loginUser.nickname)
       console.log("실패!");
       console.error(error);
     });
 };
+
+onMounted(() => {
+  console.log(store.loginUser.token)
+  axios({
+    method: 'get',
+    url: `${store.API_URL}/accounts/update/`,
+    headers: {
+      Authorization: `Token ${store.loginUser.token}`,
+    }
+  })
+  .then((response) => {
+    editedProfile.value = store.loginUser
+    console.log(editedProfile.value)
+  })
+})
 </script>

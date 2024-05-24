@@ -111,46 +111,6 @@
 
     <div class="w-full text-center flex mx-auto mt-8">
       <div class="shadow-lg p-2 rounded-lg w-1/2 ml-8 mr-8 bg-white">
-        <h3>가입한 적금 목록</h3>
-        <hr />
-        <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-          <thead class="ltr:text-left rtl:text-right">
-            <tr>
-              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                회사명
-              </th>
-              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                상품명
-              </th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200">
-            <tr v-for="saving in userstore.loginUser.savings" :key="saving.id">
-              <td
-                class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center"
-                v-for="s in savingsInfo(saving.saving)"
-              >
-                {{ s.kor_co_nm }}
-              </td>
-              <td
-                class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center"
-                v-for="s in savingsInfo(saving.saving)"
-              >
-                <RouterLink
-                  :to="{ name: 'SavingDetail', params: { id: s.id } }"
-                >
-                  {{ s.fin_prdt_nm }}
-                </RouterLink>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <hr />
-        <h3>금리 비교 그래프</h3>
-        <SavingChart />
-      </div>
-
-      <div class="shadow-lg p-2 rounded-lg w-1/2 ml-8 mr-8 bg-white">
         <h3>가입한 예금 목록</h3>
         <hr />
 
@@ -189,8 +149,48 @@
           </tbody>
         </table>
         <hr />
-        <h3>금리 비교 그래프</h3>
+        <h5>금리 비교 그래프</h5>
         <DepositChart />
+      </div>
+
+      <div class="shadow-lg p-2 rounded-lg w-1/2 ml-8 mr-8 bg-white">
+        <h3>가입한 적금 목록</h3>
+        <hr />
+        <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+          <thead class="ltr:text-left rtl:text-right">
+            <tr>
+              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                회사명
+              </th>
+              <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                상품명
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr v-for="saving in userstore.loginUser.savings" :key="saving.id">
+              <td
+                class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center"
+                v-for="s in savingsInfo(saving.saving)"
+              >
+                {{ s.kor_co_nm }}
+              </td>
+              <td
+                class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center"
+                v-for="s in savingsInfo(saving.saving)"
+              >
+                <RouterLink
+                  :to="{ name: 'SavingDetail', params: { id: s.id } }"
+                >
+                  {{ s.fin_prdt_nm }}
+                </RouterLink>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr />
+        <h5>금리 비교 그래프</h5>
+        <SavingChart />
       </div>
     </div>
   </div>

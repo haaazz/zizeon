@@ -1,5 +1,5 @@
 <template>
-  <div class="w-3/5 mx-auto pt-10 pb-5 sm:px-6 lg:px-2 rounded-lg shadow-lg mt-8 overflow-auto">
+  <div class="w-3/5 mx-auto pt-10 pb-5 sm:px-6 lg:px-2 rounded-lg shadow-lg mt-8 overflow-auto bg-white">
     <div class="title-section">
       <h2 class="answer-title">정답 확인</h2>
     </div>
@@ -24,7 +24,7 @@
         <p>정답: {{ answer }}</p>
       </p>
     </div>
-    <div class="text-center mt-5">
+    <div class="text-center mt-5 bg-white">
     <button class="back-button" @click="goBack">뒤로가기</button>
   </div>
   </div>

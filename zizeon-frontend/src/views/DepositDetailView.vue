@@ -13,7 +13,7 @@
           v-if="userstore.isLogin"
           class="flex items-end justify-evenly mb-3"
         >
-          <form>
+          <form v-if="!isOpened">
             <label
               for="balance"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-3"
@@ -32,7 +32,7 @@
               상품 가입
             </button>
           </form>
-          <div>
+          <div v-else>
             <button
               @click.prevent="cancleDeposit"
               class="p-1 border rounded-lg bg-red-400"
@@ -107,6 +107,7 @@ const userstore = useUserStore();
 const deposit = ref(null);
 const options = ref(null);
 const balance = ref(0);
+const isOpened = ref(false)
 
 const open = function () {
   axios({
@@ -121,7 +122,8 @@ const open = function () {
   })
     .then((response) => {
       userstore.getUserOpenedProducts();
-      router.push({ name: "mypage" });
+      isOpened.value = !isOpened.value
+      // router.push({ name: "mypage" });
     })
     .catch((error) => {
       console.log(balance.value);
@@ -141,7 +143,8 @@ const cancleDeposit = function () {
   })
     .then((response) => {
       userstore.getUserOpenedProducts();
-      router.push({ name: "mypage" });
+      isOpened.value = !isOpened.value
+      // router.push({ name: "mypage" });
     })
     .catch((error) => {
       console.log(balance.value);
