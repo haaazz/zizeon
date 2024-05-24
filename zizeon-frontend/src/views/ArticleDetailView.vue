@@ -41,8 +41,9 @@
     <hr />
 
     <div class="h-8">
-      <p class="mt-2 ml-2 font-bold">댓글 작성</p>
+      <p class="mt-2 ml-2 font-bold" v-if="userStore.isLogin">댓글 작성</p>
       <form
+        v-if="userStore.isLogin"
         @submit="createComment"
         class="flex items-end flex-row justify-around"
       >
