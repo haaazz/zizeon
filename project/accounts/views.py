@@ -86,15 +86,18 @@ def recommend(request):
 
     return Response({'deposit': deposits_serializers.data, 'saving': savings_serializers.data})
     
-@api_view(['DELETE', 'PUT'])
+@api_view(['GET', 'DELETE', 'PUT'])
 @permission_classes([IsAuthenticated])
 def update(request):
     user = request.user
-    if request.method == 'DELETE':
+    if request.method == 'GET':
+        serializer = UserSerialzer(user)
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT) 
     elif request.method == 'PUT':
-        serialzer = UserSerialzer(user, data=request.data, partial=True)
-        if serialzer.is_valid(raise_exception=True):
-            serialzer.save()
+        serializer = UserSerialzer(user, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
             return Response(status=status.HTTP_202_ACCEPTED)
