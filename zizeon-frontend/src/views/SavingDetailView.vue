@@ -13,7 +13,7 @@
           v-if="userstore.isLogin"
           class="flex items-end justify-evenly mb-3"
         >
-          <form>
+          <form v-if="!isOpened">
             <label
               for="balance"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-3"
@@ -32,7 +32,7 @@
               상품 가입
             </button>
           </form>
-          <div>
+          <div v-else>
             <button
               @click.prevent="cancleSaving"
               class="p-1 border rounded-lg bg-red-400"
@@ -101,7 +101,7 @@ import { ref, onMounted } from "vue";
 import { useSavingStore } from "@/stores/saving";
 import { useUserStore } from "@/stores/user";
 import { useRoute, useRouter } from "vue-router";
-import axios from "axios";
+import axios from "axios"; 
 
 const store = useSavingStore();
 const route = useRoute();
@@ -111,6 +111,7 @@ const userstore = useUserStore();
 const saving = ref(null);
 const options = ref(null);
 const balance = ref(0);
+const isOpened = ref(false)
 
 const open = function () {
   axios({
@@ -125,7 +126,8 @@ const open = function () {
   })
     .then((response) => {
       userstore.getUserOpenedProducts();
-      router.push({ name: "mypage" });
+      isOpened.value = !isOpened.value
+      // router.push({ name: "mypage" });
     })
     .catch((error) => {
       console.log(balance.value);
@@ -145,7 +147,8 @@ const cancleSaving = function () {
   })
     .then((response) => {
       userstore.getUserOpenedProducts();
-      router.push({ name: "mypage" });
+      isOpened.value = !isOpened.value
+      // router.push({ name: "mypage" });
     })
     .catch((error) => {
       console.log(balance.value);

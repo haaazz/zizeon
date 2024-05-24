@@ -7,7 +7,7 @@ export const useSavingStore = defineStore(
   () => {
     const savings = ref([]);
     const savingoptions = ref([]);
-    const API_URL = "http://127.0.0.1:8000/";
+    const API_URL = 'http://70.12.102.186:8000';
     const getSaving = function () {
       return axios({
         method: "get",
