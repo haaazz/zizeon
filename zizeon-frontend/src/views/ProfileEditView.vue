@@ -47,16 +47,19 @@
             <input type="text" id="income" v-model="editedProfile.income" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
         </div>
 
-        <div >
-            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">성별</label>
-            <div class="flex content-center flex-row">
-            <div>
-              <label for="Male">남성</label>
-            <input type="radio" id="Male" value="Male" v-model="store.loginUser.gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 required" />
+        <div>
+            <div class="col-span-6 sm:col-span-3 flex items-center justify-start">
+              <label for="gender" class="block p-3 text-m font-medium text-gray-900 dark:text-white">성별</label>
+
+            <div class="flex items-center me-4">
+              <label for="Male" class="mr-2">남성</label>
+            <input type="radio" id="Male" value="Male" v-model="store.loginUser.gender"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           </div>
-          <div>
-              <label for="Female">여성</label>
-            <input type="radio" id="Female" value="Female" v-model="store.loginUser.gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 required" />
+          <div class="flex items-center me-4">
+              <label for="Female" class="mr-2">여성</label>
+            <input type="radio" id="Female" value="Female" v-model="store.loginUser.gender"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           </div>
         </div>        </div></div>
         <button type="submit" class="border rounded-lg pl-5 pr-5 pt-1 pb-1 ">완료</button>
