@@ -5,7 +5,7 @@ import axios from "axios";
 export const useUserStore = defineStore(
   "usercounter",
   () => {
-    const API_URL = "http://127.0.0.1:8000/";
+    const API_URL = 'http://70.12.102.186:8000';
     const loginUser = ref({
       age: 0,
       email: "",

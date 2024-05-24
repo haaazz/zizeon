@@ -31,7 +31,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
-            <tr v-for="article in paginatedArticles" :key="article.id">
+            <tr v-for="article in paginatedArticles" :key="article.id" class="hover:bg-green-400">
               <td
                 class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center"
               >
