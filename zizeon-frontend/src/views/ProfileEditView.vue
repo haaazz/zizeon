@@ -1,105 +1,70 @@
 <template>
-  <div v-if="store.loginUser">
-    <h1>프로필 수정</h1>
-    <form @submit.prevent="updateProfile">
-      <label for="nickname">닉네임:</label>
-      <input id="nickname" v-model="store.loginUser.nickname" type="text" />
+    <h1 class="mt-6 text-xl font-bold sm:text-3xl md:text-4xl text-center text-green-600">
+    회원정보 수정 페이지
+  </h1>
+<div v-if="store.loginUser" class="w-4/5 mx-auto mt-12">
 
-      <label for="job">직업</label>
-      <select id="job" v-model="store.loginUser.job">
-        <option value="Analyst">어널리스트</option>
-        <option value="Teacher">센세</option>
-        <option value="Lawyer">변호사</option>
-        <option value="Researcher">조사하는사람</option>
-        <option value="Photographer">사진작가</option>
-        <option value="Manager">마네쟈</option>
-        <option value="Writer">작가</option>
-        <option value="Designer">디자이너</option>
-        <option value="Doctor">의사</option>
-        <option value="Artist">예술가</option>
-        <option value="Nurse">간호사</option>
-        <option value="Chef">요리사</option>
-        <option value="Student">학생</option>
-        <option value="Engineer">엔지니어</option>
-        <option value="Marketer">마케터</option>
-        <option value="Developer">Developer</option>
-        <option value="Accountant">회계사</option>
-      </select>
+<form @submit.prevent="updateProfile">
+    <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div>
+            <label for="nickname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">닉네임</label>
+            <input type="text" id="nickname" v-model="store.loginUser.nickname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+        </div>
+        <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">이메일</label>
+            <input type="email" id="email" v-model="editedProfile.email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+        </div>  
+        <div>
+            <label for="age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">나이</label>
+            <input type="tel" id="age" v-model="editedProfile.age" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+        </div>
 
-      <label for="gender">성별</label>
-      <div>
-        <label for="Male">남성</label>
-        <input
-          type="radio"
-          id="Male"
-          value="Male"
-          v-model="store.loginUser.gender"
-        />
+        <div>
+            <label for="job" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">직업</label>
+            <select id="job" v-model="store.loginUser.job" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+            <option value="Analyst">어널리스트</option>
+            <option value="Teacher">센세</option>
+            <option value="Lawyer">변호사</option>
+            <option value="Researcher">조사하는사람</option>
+            <option value="Photographer">사진작가</option>
+            <option value="Manager">마네쟈</option>
+            <option value="Writer">작가</option>
+            <option value="Designer">디자이너</option>
+            <option value="Doctor">의사</option>
+            <option value="Artist">예술가</option>
+            <option value="Nurse">간호사</option>
+            <option value="Chef">요리사</option>
+            <option value="Student">학생</option>
+            <option value="Engineer">엔지니어</option>
+            <option value="Marketer">마케터</option>
+            <option value="Developer">Developer</option>
+            <option value="Accountant">회계사</option>
+        </select>
+          </div>
 
-        <label for="Female">여성</label>
-        <input
-          type="radio"
-          id="Female"
-          value="Female"
-          v-model="store.loginUser.gender"
-        />
-      </div>
+        <div>
+            <label for="income" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">연간                 소득</label>
+            <input type="text" id="income" v-model="editedProfile.income" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+        </div>
 
-      <div class="col-span-6 sm:col-span-3">
-        <label for="username" class="block text-sm font-medium text-gray-700">
-          아이디
-        </label>
+        <div >
+            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">성별</label>
+            <div class="flex content-center flex-row">
+            <div>
+              <label for="Male">남성</label>
+            <input type="radio" id="Male" value="Male" v-model="store.loginUser.gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 required" />
+          </div>
+          <div>
+              <label for="Female">여성</label>
+            <input type="radio" id="Female" value="Female" v-model="store.loginUser.gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 required" />
+          </div>
+        </div>        </div></div>
+        <button type="submit" class="border rounded-lg pl-5 pr-5 pt-1 pb-1 ">완료</button>
+</form>
 
-        <input
-          type="text"
-          id="username"
-          v-model="editedProfile.username"
-          class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-        />
-      </div>
 
-      <div class="col-span-6 sm:col-span-3">
-        <label for="email" class="block text-sm font-medium text-gray-700">
-          이메일
-        </label>
+</div>
 
-        <input
-          type="email"
-          id="email"
-          v-model="editedProfile.email"
-          class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-        />
-      </div>
-
-      <div class="col-span-6 sm:col-span-3">
-        <label for="age" class="block text-sm font-medium text-gray-700">
-          나이
-        </label>
-
-        <input
-          type="text"
-          id="age"
-          v-model="editedProfile.age"
-          class="mt-1 p-2 vw-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-        />
-      </div>
-
-      <div class="col-span-6 sm:col-span-3">
-        <label for="income" class="block text-sm font-medium text-gray-700">
-          연봉(천원단위)
-        </label>
-
-        <input
-          type="text"
-          id="income"
-          v-model="editedProfile.income"
-          class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-        />
-      </div>
-
-      <button type="submit">완료</button>
-    </form>
-  </div>
 </template>
 
 <script setup>
